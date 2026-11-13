@@ -20,7 +20,7 @@
     const TEXT = {
         en: {
             title: 'Relic Rescue Rover',
-            tagline: 'Build your rover, drive across the Moon and Mars, and rebuild the machines explorers left behind.',
+            tagline: 'Build your rover, drive across the Moon and Mars, fly through deep space, and rebuild the machines explorers left behind.',
             chooseWorld: 'Choose a world',
             Moon: 'The Moon', Mars: 'Mars',
             MoonInfo: 'Gravity is 1/6 of Earth. Big floaty jumps!',
@@ -56,11 +56,19 @@
             keep: 'Keep exploring',
             nearest: 'Nearest broken relic: {d} m',
             allDone: 'World complete! Every relic here is rebuilt.',
-            jump: 'Jump'
+            jump: 'Jump',
+            Deep: 'Deep Space',
+            DeepInfo: 'No ground and no air. Your ship keeps drifting until you thrust the other way!',
+            flyKeys: 'Fly: W thrust, S brake, A D turn  ·  Up / down: Space / Shift  ·  Rebuild: E',
+            flyTouch: 'Use the joystick to fly. The ship lines itself up with the nearest probe.',
+            flyIntro: 'Follow the radar to four silent probes drifting far from the Sun.',
+            rise: 'Up',
+            signal: 'A radio message from here takes about {h} hours to reach Earth.',
+            above: 'above you', below: 'below you'
         },
         ar: {
             title: 'مركبة إنقاذ الآثار',
-            tagline: 'ابنِ مركبتك، وتجوّل على القمر والمريخ، وأعد بناء الآلات التي تركها المستكشفون.',
+            tagline: 'ابنِ مركبتك، وتجوّل على القمر والمريخ، وحلّق في الفضاء السحيق، وأعد بناء الآلات التي تركها المستكشفون.',
             chooseWorld: 'اختر عالمًا',
             Moon: 'القمر', Mars: 'المريخ',
             MoonInfo: 'الجاذبية سُدس جاذبية الأرض. قفزات عالية وبطيئة!',
@@ -96,7 +104,15 @@
             keep: 'واصل الاستكشاف',
             nearest: 'أقرب أثر مكسور: {d} م',
             allDone: 'اكتمل هذا العالم! أُعيد بناء كل الآثار هنا.',
-            jump: 'قفز'
+            jump: 'قفز',
+            Deep: 'الفضاء السحيق',
+            DeepInfo: 'لا أرض ولا هواء. تظل سفينتك تنجرف حتى تدفعها في الاتجاه المعاكس!',
+            flyKeys: 'الطيران: W للدفع، S للكبح، A و D للدوران  ·  أعلى / أسفل: المسافة / Shift  ·  البناء: E',
+            flyTouch: 'استخدم عصا التحكم للطيران. تضبط السفينة ارتفاعها مع أقرب مسبار.',
+            flyIntro: 'اتبع الرادار إلى أربعة مسابير صامتة تنجرف بعيداً عن الشمس.',
+            rise: 'أعلى',
+            signal: 'تحتاج الرسالة اللاسلكية من هنا إلى نحو {h} ساعة لتصل إلى الأرض.',
+            above: 'فوقك', below: 'تحتك'
         }
     };
 
@@ -154,7 +170,22 @@
             en: ['Computer ring', 'This rocket needs a brain to steer it. Which part is that?', 'This ring held the computers that steered the giant Saturn V rocket.'],
             ar: ['حلقة الحاسوب', 'يحتاج هذا الصاروخ إلى عقل يوجّهه. أي قطعة هي؟', 'هذه الحلقة كانت تحمل الحواسيب التي وجّهت صاروخ «ساتورن ٥» العملاق.'] }
     };
-    const CONFUSABLE = { arm: 'scoop', scoop: 'arm', solar: 'rtg', rtg: 'solar' };
+    Object.assign(PARTS, {
+        bigdish: { icon: 'fa-satellite-dish',
+            en: ['Giant dish antenna', 'This machine is billions of kilometres from Earth and must still be heard. Which part sends its faint voice home?', 'The dish is wider than a car, yet the radio behind it is only about as strong as a fridge light bulb.'],
+            ar: ['الهوائي الطبقي العملاق', 'هذه الآلة تبعد مليارات الكيلومترات عن الأرض ويجب أن يُسمع صوتها. أي قطعة ترسل صوتها الخافت إلى الأرض؟', 'الطبق أعرض من سيارة، لكن الراديو خلفه لا تزيد قوته على مصباح الثلاجة تقريباً.'] },
+        rtgboom: { icon: 'fa-radiation',
+            en: ['Nuclear power arm', 'Out here the Sun is only a bright star, far too weak for solar panels. Which part makes the electricity?', 'The nuclear batteries sit out on an arm so that their radiation stays away from the instruments.'],
+            ar: ['ذراع الطاقة النووية', 'الشمس هنا مجرد نجم لامع، وهي أضعف من أن تشغّل الألواح الشمسية. أي قطعة تصنع الكهرباء؟', 'توضع البطاريات النووية على ذراع بعيدة حتى يبقى إشعاعها بعيداً عن الأجهزة.'] },
+        record: { icon: 'fa-record-vinyl',
+            en: ['Message from Earth', 'One day, far in the future, someone might find this machine. Which part tells them who sent it?', 'The Voyagers carry a Golden Record of sounds and pictures. The Pioneers carry a plaque with a drawing of two people.'],
+            ar: ['رسالة من الأرض', 'قد يعثر أحد على هذه الآلة يوماً ما في المستقبل البعيد. أي قطعة تخبره من أرسلها؟', 'تحمل مركبتا فوياجر أسطوانة ذهبية فيها أصوات وصور. وتحمل مركبتا بايونير لوحة عليها رسم لشخصين.'] },
+        magboom: { icon: 'fa-magnet',
+            en: ['Magnetometer boom', 'Scientists want to measure invisible magnetic fields in space. Which part holds that sensor far away from the machine itself?', 'The sensor sits at the end of a long boom so that the spacecraft\'s own magnetism does not confuse it.'],
+            ar: ['ذراع مقياس المغناطيسية', 'يريد العلماء قياس المجالات المغناطيسية غير المرئية في الفضاء. أي قطعة تحمل هذا الجهاز بعيداً عن الآلة نفسها؟', 'يوضع الجهاز في نهاية ذراع طويلة حتى لا تربكه مغناطيسية المركبة نفسها.'] }
+    });
+    const CONFUSABLE = { arm: ['scoop'], scoop: ['arm'], solar: ['rtg', 'rtgboom'], rtg: ['solar', 'rtgboom'],
+                         rtgboom: ['rtg', 'solar'], bigdish: ['dish'], dish: ['bigdish'] };
 
     // Which 3D model each relic uses
     const MODEL_FOR = {
@@ -166,7 +197,8 @@
         'opportunity-oppy': 'mer', 'spirit-rover': 'mer', 'sojourner-rover': 'sojourner',
         'perseverance-shield': 'skycrane', 'ingenuity-helicopter': 'ingenuity',
         'insight-lander': 'insight', 'phoenix-lander': 'phoenix',
-        'viking1-lander': 'viking', 'viking2-lander': 'viking', 'mars-polar-lander': 'mpl'
+        'viking1-lander': 'viking', 'viking2-lander': 'viking', 'mars-polar-lander': 'mpl',
+        'voyager-1': 'voyager', 'voyager-2': 'voyager', 'pioneer-10': 'pioneer', 'pioneer-11': 'pioneer'
     };
 
     const lang = () => (typeof currentLang !== 'undefined' && TEXT[currentLang]) ? currentLang : 'en';
@@ -462,6 +494,41 @@
                 parts: [['legs', P.legs(3, 1, 1.7, 0.85)], ['rtg', P.rtg(-0.75, 1.75, -0.5)],
                         ['dish', P.dish(0.55, 1.0, 0.2, 1.3, -0.3)], ['scoop', P.arm(0, 1.1, 1.0)]] };
         },
+        // The player's scout ship for Deep Space (ready built, nothing to assemble)
+        ship() {
+            return { radius: 2.2,
+                base: [m(cyl(0.1, 0.75, 2.6, 8), C.white, 0, 0.9, 0.3, Math.PI / 2), m(cyl(0.75, 0.55, 1.0, 8), C.grey, 0, 0.9, -1.5, Math.PI / 2),
+                       m(box(3.0, 0.08, 1.0), C.cyan, 0, 0.9, -1.1), m(box(0.08, 0.9, 0.8), C.cyan, 0, 1.4, -1.4),
+                       m(new THREE.SphereGeometry(0.42, 8, 6), C.glass, 0, 1.15, 0.5), m(cyl(0.45, 0.3, 0.4, 8, true), C.darkDS, 0, 0.9, -2.15, Math.PI / 2)],
+                parts: [] };
+        },
+        probe(pioneer) {
+            const dishR = pioneer ? 1.5 : 1.9;
+            const rtg = grp();
+            if (pioneer) {
+                [-1, 1].forEach(sx => {
+                    rtg.add(rod([0, 0.9, 0], [sx * 2.6, 0.9, -1.5], 0.035, C.silver));
+                    rtg.add(m(cyl(0.2, 0.2, 0.7, 8), C.dark, sx * 2.6, 0.9, -1.5, 0, 0, Math.PI / 2));
+                });
+            } else {
+                rtg.add(rod([0, 0.9, 0], [-3.2, 0.6, 0], 0.04, C.silver));
+                for (let i = 0; i < 3; i++) rtg.add(m(cyl(0.22, 0.22, 0.6, 8), C.dark, -1.9 - i * 0.65, 0.72 - i * 0.06, 0, 0, 0, Math.PI / 2));
+            }
+            const record = pioneer
+                ? grp(m(box(0.5, 0.3, 0.03), C.gold, 0, 0.9, 0.92))
+                : grp(m(cyl(0.36, 0.36, 0.04, 16), C.gold, 0, 0.9, 0.94, Math.PI / 2), m(cyl(0.08, 0.08, 0.05, 8), C.dark, 0, 0.9, 0.95, Math.PI / 2));
+            const magLen = pioneer ? 3.4 : 5.5;
+            const mag = grp(rod([0, 0.9, 0], [magLen, 1.3, 0.6], 0.03, C.silver), rod([0, 1.1, 0], [magLen, 1.3, 0.6], 0.02, C.silver),
+                            m(box(0.25, 0.25, 0.25), C.gold, magLen, 1.3, 0.6));
+            const dish = grp(m(new THREE.ConeGeometry(dishR, dishR * 0.4, 16, 1, true), C.whiteDS, 0, 1.25 + dishR * 0.2, 0, Math.PI),
+                             rod([0, 1.2, 0], [0, 1.25 + dishR * 0.75, 0], 0.03, C.silver),
+                             m(new THREE.SphereGeometry(0.14, 6, 5), C.dark, 0, 1.3 + dishR * 0.75, 0));
+            return { radius: pioneer ? 3.2 : 4.2,
+                base: [m(cyl(0.9, 0.9, 0.5, pioneer ? 6 : 10), pioneer ? C.silver : C.gold, 0, 0.9, 0), m(cyl(0.5, 0.5, 0.2, 8), C.dark, 0, 0.58, 0)],
+                parts: [['bigdish', dish], ['rtgboom', rtg], ['magboom', mag], ['record', record]] };
+        },
+        voyager() { return MODELS.probe(false); },
+        pioneer() { return MODELS.probe(true); },
         mpl() {
             return { radius: 3.2,
                 base: [m(cyl(0.9, 0.9, 0.3, 8), C.gold, 0, 0.9, 0)],
@@ -518,6 +585,96 @@
     };
 
     let G = null;   // everything about the running game
+
+    // Deep Space: no ground. Planets are scenery (not to scale); four probes drift far from the Sun.
+    const SPACE_LIMIT = 900;
+    const SPACE_SITES = {
+        'pioneer-10': { at: [-70, 6, 230], hours: 19 },
+        'pioneer-11': { at: [95, -10, 400], hours: 16 },
+        'voyager-2': { at: [60, 8, 640], hours: 20 },
+        'voyager-1': { at: [-50, 14, 800], hours: 24 }
+    };
+    function createSpace() {
+        const rand = rng(77);
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x01020a);
+        scene.add(new THREE.AmbientLight(0x8899cc, 0.4));
+        const sunLight = new THREE.PointLight(0xfff2d0, 0.75, 0, 0);
+        sunLight.position.set(0, 30, -320);
+        scene.add(sunLight);
+
+        const spin = [];
+        const planets = [];   // solid: the ship is pushed away from them
+        function planet(x, y, z, r, bands, ring) {
+            const geo = new THREE.SphereGeometry(r, 20, 14);
+            const pos = geo.attributes.position, col = new Float32Array(pos.count * 3), c = new THREE.Color();
+            for (let i = 0; i < pos.count; i++) {
+                const lat = (pos.getY(i) / r + 1) / 2;
+                c.setHex(bands[Math.min(bands.length - 1, Math.floor(lat * bands.length))]);
+                col[i * 3] = c.r; col[i * 3 + 1] = c.g; col[i * 3 + 2] = c.b;
+            }
+            geo.setAttribute('color', new THREE.BufferAttribute(col, 3));
+            const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 1 }));
+            mesh.position.set(x, y, z);
+            scene.add(mesh); spin.push(mesh); planets.push({ x, y, z, r });
+            if (ring) {
+                const rg = new THREE.Mesh(new THREE.RingGeometry(r * 1.35, r * 2.2, 48),
+                    new THREE.MeshBasicMaterial({ color: 0xd8c79a, side: THREE.DoubleSide, transparent: true, opacity: 0.75 }));
+                rg.position.set(x, y, z); rg.rotation.x = -Math.PI / 2 + 0.35;
+                scene.add(rg);
+            }
+        }
+        const sun = new THREE.Mesh(new THREE.SphereGeometry(42, 20, 14), new THREE.MeshBasicMaterial({ color: 0xffd76a }));
+        sun.position.set(0, 30, -320);
+        scene.add(sun); planets.push({ x: 0, y: 30, z: -320, r: 42 });
+        planet(-170, -10, 170, 46, [0xc9a27a, 0xe6d3b3, 0xb07a52, 0xe9dcc3, 0xc48f63, 0xe6d3b3, 0xb5825a]);   // Jupiter
+        planet(210, 5, 360, 36, [0xd9c38f, 0xeadfb4, 0xcfb57c, 0xeadfb4, 0xd9c38f], true);                    // Saturn
+        planet(-190, 20, 540, 24, [0x9fe3e6, 0xb8eef0, 0x9fe3e6]);                                             // Uranus
+        planet(170, -15, 700, 23, [0x2f55d4, 0x4a74ea, 0x2f55d4, 0x3f66de]);                                   // Neptune
+
+        // Stars all around, and drifting dust that makes speed visible
+        const starPos = new Float32Array(1500 * 3);
+        for (let i = 0; i < 1500; i++) {
+            const a = rand() * Math.PI * 2, e = (rand() - 0.5) * Math.PI;
+            starPos[i * 3] = Math.cos(a) * Math.cos(e) * 2400; starPos[i * 3 + 1] = Math.sin(e) * 2400; starPos[i * 3 + 2] = Math.sin(a) * Math.cos(e) * 2400;
+        }
+        const starGeo = new THREE.BufferGeometry();
+        starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+        const stars = new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 1.7, sizeAttenuation: false }));
+        scene.add(stars);
+        const DUST = 260, dustBase = new Float32Array(DUST * 3), dustPos = new Float32Array(DUST * 3);
+        for (let i = 0; i < DUST * 3; i++) dustBase[i] = rand() * 160;
+        const dustGeo = new THREE.BufferGeometry();
+        dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3));
+        const dust = new THREE.Points(dustGeo, new THREE.PointsMaterial({ color: 0x9fdcff, size: 0.35, transparent: true, opacity: 0.7 }));
+        dust.frustumCulled = false;
+        scene.add(dust);
+
+        const relics = RELICS_DATA.filter(r => r.target === 'Deep' && MODEL_FOR[r.id] && SPACE_SITES[r.id]);
+        const sites = relics.map((relic, i) => {
+            const def = SPACE_SITES[relic.id];
+            const s = { relic, x: def.at[0], y: def.at[1], z: def.at[2], hours: def.hours };
+            s.model = buildModel(MODEL_FOR[relic.id]);
+            s.model.group.position.set(s.x, s.y, s.z);
+            s.model.group.rotation.y = i * 1.3;
+            s.done = save.done.includes(relic.id);
+            if (s.done) s.model.parts.forEach(p => { p.placed = true; });
+            poseModel(s.model, s.done ? 'done' : 'wreck', s.y);
+            scene.add(s.model.group);
+            s.beaconMat = new THREE.MeshBasicMaterial({ color: s.done ? 0x34d399 : 0x00f2fe, transparent: true, opacity: 0.25,
+                blending: THREE.AdditiveBlending, depthWrite: false, wireframe: true });
+            s.beacon = new THREE.Mesh(new THREE.IcosahedronGeometry(s.model.radius * 2.2, 1), s.beaconMat);
+            s.beacon.position.set(s.x, s.y + 0.9, s.z);
+            scene.add(s.beacon);
+            return s;
+        });
+
+        const ship = buildModel('ship');
+        scene.add(ship.group);
+        return { name: 'Deep', space: true, W: WORLDS.Moon, scene, sites, rocks: [], planets, spin, dust, dustBase, heightAt: () => -1e6,
+                 rover: ship, stars, earth: null, rings: [], pos: new THREE.Vector3(0, 0, 0), vel: new THREE.Vector3(),
+                 heading: 0, speed: 0, jumpY: 0, jumpV: 0, onGround: true, radarRange: 420 };
+    }
 
     function createWorld(worldName) {
         const W = WORLDS[worldName];
@@ -696,7 +853,8 @@
         ui.exit.addEventListener('click', () => { click(); closeArena(); });
         ui.worlds.addEventListener('click', () => { click(); showMenu(); });
         ui.action.addEventListener('click', () => doAction());
-        ui.jump.addEventListener('pointerdown', e => { e.preventDefault(); jump(); });
+        ui.jump.addEventListener('pointerdown', e => { e.preventDefault(); input.rise = true; jump(); });
+        ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => ui.jump.addEventListener(ev, () => { input.rise = false; }));
 
         // Touch joystick
         const stickMove = e => {
@@ -754,15 +912,16 @@
     function updateHud() {
         if (!G) return;
         const done = G.sites.filter(s => s.done).length;
-        ui.world.innerHTML = '<i class="fa-solid ' + (G.name === 'Moon' ? 'fa-moon' : 'fa-globe') + '"></i> ' + esc(tr(G.name));
+        ui.world.innerHTML = '<i class="fa-solid ' + WORLD_ICON[G.name] + '"></i> ' + esc(tr(G.name));
+        ui.jump.textContent = tr(G.space ? 'rise' : 'jump');
         ui.count.innerHTML = '<i class="fa-solid fa-screwdriver-wrench"></i> ' + esc(num(done) + ' / ' + num(G.sites.length));
         ui.stars.innerHTML = '<i class="fa-solid fa-star"></i> ' + esc(num(totalStars()));
         ui.worlds.textContent = tr('worlds');
         ui.exit.textContent = tr('exit');
-        ui.jump.textContent = tr('jump');
     }
 
     /* ---------------- 6. MENU ---------------- */
+    const WORLD_ICON = { Moon: 'fa-moon', Mars: 'fa-globe', Deep: 'fa-satellite' };
     let resetArmed = false;
     function showMenu() {
         if (G && G.build && G.build.site && !G.build.site.done) cancelBuild();
@@ -772,7 +931,7 @@
             const all = RELICS_DATA.filter(r => r.target === name && MODEL_FOR[r.id]);
             const done = all.filter(r => save.done.includes(r.id)).length;
             return '<button type="button" class="arena-world arena-world-' + name.toLowerCase() + '" data-world="' + name + '">' +
-                '<i class="fa-solid ' + (name === 'Moon' ? 'fa-moon' : 'fa-globe') + ' arena-world-icon"></i>' +
+                '<i class="fa-solid ' + WORLD_ICON[name] + ' arena-world-icon"></i>' +
                 '<span class="arena-world-name">' + esc(tr(name)) + '</span>' +
                 '<span class="arena-world-info">' + esc(tr(name + 'Info')) + '</span>' +
                 '<span class="arena-world-bar"><span style="width:' + (done / all.length * 100) + '%"></span></span>' +
@@ -785,7 +944,7 @@
                 '<h2 class="arena-title"><i class="fa-solid fa-robot"></i> ' + esc(tr('title')) + '</h2>' +
                 '<p class="arena-tagline">' + esc(tr('tagline')) + '</p>' +
                 '<p class="arena-choose">' + esc(tr('chooseWorld')) + '</p>' +
-                '<div class="arena-worlds">' + card('Moon') + card('Mars') + '</div>' +
+                '<div class="arena-worlds">' + card('Moon') + card('Mars') + card('Deep') + '</div>' +
                 '<div class="arena-menu-foot">' +
                     '<span class="arena-chip arena-chip-gold"><i class="fa-solid fa-star"></i> ' + esc(num(totalStars())) + '</span>' +
                     '<button type="button" class="arena-link" id="arena-reset">' + esc(tr('reset')) + '</button>' +
@@ -821,7 +980,15 @@
     }
 
     function startWorld(name) {
-        if (!G || G.name !== name) G = createWorld(name);
+        if (!G || G.name !== name) G = name === 'Deep' ? createSpace() : createWorld(name);
+        camera.far = G.space ? 6000 : 900;
+        camera.updateProjectionMatrix();
+        if (G.space) {
+            updateHud();
+            setMode('drive');
+            toast(tr('flyIntro') + ' ' + tr(isTouch() ? 'flyTouch' : 'flyKeys'));
+            return;
+        }
         updateHud();
         if (!save.rover) startBuild(null);
         else setMode('drive');
@@ -863,7 +1030,7 @@
         const part = b.model.parts[b.index];
         const key = part.key;
         // Two wrong choices: one other part of this machine if there is one, the rest from the whole kit
-        const banned = [key, CONFUSABLE[key]];
+        const banned = [key].concat(CONFUSABLE[key] || []);
         const own = shuffle(b.model.parts.filter(p => !p.placed && !banned.includes(p.key)).map(p => p.key));
         const pool = shuffle(Object.keys(PARTS).filter(k => !banned.includes(k) && k !== own[0]));
         const choices = shuffle([key].concat(own.slice(0, 1), pool).slice(0, 3));
@@ -937,6 +1104,7 @@
                 (voice ? '<p class="arena-voice">“' + esc(voice) + '”</p>' : '') +
                 '<p class="arena-found-title"><i class="fa-solid fa-flask"></i> ' + esc(tr('found')) + '</p>' +
                 '<p class="arena-fact">' + esc(relic.science) + '</p>' +
+                (site.hours ? '<p class="arena-keys"><i class="fa-solid fa-tower-broadcast"></i> ' + esc(tr('signal', { h: site.hours })) + '</p>' : '') +
                 '<button type="button" class="arena-btn arena-btn-main" id="arena-toquiz">' + esc(tr('toQuiz')) + ' <i class="fa-solid fa-arrow-right rtl:rotate-180"></i></button>';
             ui.panel.scrollTop = 0;
             ui.panel.querySelector('#arena-toquiz').addEventListener('click', () => { click(); showRelicCard(site, true); });
@@ -1030,7 +1198,7 @@
 
     /* ---------------- 8. DRIVING ---------------- */
     function jump() {
-        if (!G || G.mode !== 'drive' || !G.onGround) return;
+        if (!G || G.mode !== 'drive' || G.space || !G.onGround) return;
         G.jumpV = 5.5;
         G.onGround = false;
         click();
@@ -1040,6 +1208,7 @@
         if (!G || G.mode !== 'drive' || !G.near) return;
         click();
         G.speed = 0;
+        if (G.vel) G.vel.set(0, 0, 0);
         if (G.near.done) showRelicCard(G.near, false); else startBuild(G.near);
     }
 
@@ -1123,6 +1292,85 @@
         camera.lookAt(G.pos.x + fx * 3, ground + 1.5 + G.jumpY * 0.8, G.pos.z + fz * 3);
     }
 
+    // Flying in Deep Space: thrust adds speed and the ship keeps drifting
+    function updateFlight(dt) {
+        const k = input.keys;
+        let ix = (k.d || k.ArrowRight ? 1 : 0) - (k.a || k.ArrowLeft ? 1 : 0);
+        let iy = (k.w || k.ArrowUp ? 1 : 0) - (k.s || k.ArrowDown ? 1 : 0);
+        if (input.stick) { ix = input.stick.x; iy = input.stick.y; }
+        let iz = (k[' '] || input.rise ? 1 : 0) - (k.Shift ? 1 : 0);
+
+        G.heading -= ix * 1.7 * dt;
+        const fx = Math.sin(G.heading), fz = Math.cos(G.heading);
+        G.vel.x += fx * iy * 16 * dt;
+        G.vel.z += fz * iy * 16 * dt;
+
+        // Find the nearest probe (for the prompt) and the nearest unfinished one (for the read-out)
+        let near = null, nearD = Infinity, open = null, openD = Infinity;
+        G.sites.forEach(s => {
+            const d = Math.hypot(G.pos.x - s.x, G.pos.y - s.y, G.pos.z - s.z);
+            if (d < s.model.radius + 9 && d < nearD) { near = s; nearD = d; }
+            if (!s.done && d < openD) { open = s; openD = d; }
+        });
+        // Height: the keys move the ship; otherwise it eases level with the nearest unfinished probe
+        if (iz) G.vel.y += iz * 14 * dt;
+        else if (open) G.vel.y += ((open.y - G.pos.y) * 0.6 - G.vel.y) * Math.min(1, dt * 2);
+        else G.vel.y -= G.vel.y * Math.min(1, dt * 2);
+
+        // A little drag keeps it playable, and there is a top speed
+        const drag = Math.max(0, 1 - dt * 0.22);
+        G.vel.x *= drag; G.vel.z *= drag;
+        const sp = Math.hypot(G.vel.x, G.vel.z);
+        if (sp > 42) { G.vel.x *= 42 / sp; G.vel.z *= 42 / sp; }
+        G.pos.addScaledVector(G.vel, dt);
+
+        // Stay inside the play area, outside planets and probes
+        const d0 = G.pos.length();
+        if (d0 > SPACE_LIMIT) { G.pos.multiplyScalar(SPACE_LIMIT / d0); G.vel.multiplyScalar(0.5); }
+        const solid = G.planets.map(p => ({ x: p.x, y: p.y, z: p.z, r: p.r + 4 }))
+            .concat(G.sites.map(s => ({ x: s.x, y: s.y + 0.9, z: s.z, r: s.model.radius + 1.6 })));
+        solid.forEach(o => {
+            const dx = G.pos.x - o.x, dy = G.pos.y - o.y, dz = G.pos.z - o.z, d = Math.hypot(dx, dy, dz);
+            if (d < o.r && d > 0.001) {
+                G.pos.set(o.x + dx / d * o.r, o.y + dy / d * o.r, o.z + dz / d * o.r);
+                const into = (G.vel.x * dx + G.vel.y * dy + G.vel.z * dz) / d;
+                if (into < 0) { G.vel.x -= dx / d * into; G.vel.y -= dy / d * into; G.vel.z -= dz / d * into; }
+            }
+        });
+
+        const r = G.rover.group;
+        r.position.set(G.pos.x, G.pos.y - 0.9, G.pos.z);
+        r.rotation.order = 'YXZ';
+        r.rotation.set(-G.vel.y * 0.02, G.heading, ix * 0.45);
+        G.spin.forEach(pl => { pl.rotation.y += dt * 0.02; });
+
+        // Dust wraps around the ship so there is always some drifting past
+        const dp = G.dust.geometry.attributes.position.array, base = G.dustBase;
+        for (let i = 0; i < base.length; i += 3) {
+            dp[i] = G.pos.x + ((((base[i] - G.pos.x) % 160) + 160) % 160) - 80;
+            dp[i + 1] = G.pos.y + ((((base[i + 1] - G.pos.y) % 160) + 160) % 160) - 80;
+            dp[i + 2] = G.pos.z + ((((base[i + 2] - G.pos.z) % 160) + 160) % 160) - 80;
+        }
+        G.dust.geometry.attributes.position.needsUpdate = true;
+
+        if (near !== G.near) {
+            G.near = near;
+            ui.action.hidden = !near;
+            if (near) ui.action.innerHTML = '<i class="fa-solid ' + (near.done ? 'fa-eye' : 'fa-screwdriver-wrench') + '"></i> ' +
+                esc(tr(near.done ? 'view' : 'rebuild')) + (isTouch() ? '' : ' <kbd>E</kbd>');
+        }
+        if (open && !near) {
+            const dy = open.y - G.pos.y;
+            ui.nearest.hidden = false;
+            ui.nearest.textContent = tr('nearest', { d: Math.round(openD) }) +
+                (Math.abs(dy) > 6 ? '  ·  ' + num(Math.round(Math.abs(dy))) + ' ' + tr(dy > 0 ? 'above' : 'below') : '');
+        } else ui.nearest.hidden = true;
+
+        const want = new THREE.Vector3(G.pos.x - fx * 13, G.pos.y + 4.5, G.pos.z - fz * 13);
+        camera.position.lerp(want, Math.min(1, dt * 4));
+        camera.lookAt(G.pos.x + fx * 6, G.pos.y + 0.6, G.pos.z + fz * 6);
+    }
+
     function updateBuildCamera(dt) {
         const b = G.build;
         const model = b.model;
@@ -1165,7 +1413,7 @@
 
     function drawRadar() {
         const ctx = ui.radar.getContext('2d');
-        const S = ui.radar.width, c = S / 2, R = c - 6, scale = R / 150;
+        const S = ui.radar.width, c = S / 2, R = c - 6, scale = R / (G.radarRange || 150);
         ctx.clearRect(0, 0, S, S);
         ctx.fillStyle = 'rgba(8,10,21,0.72)';
         ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.fill();
@@ -1190,7 +1438,7 @@
         const dt = Math.min(0.05, (now - lastTime) / 1000 || 0);
         lastTime = now;
         if (!G) { renderer.clear(); return; }
-        if (G.mode === 'drive') { updateDrive(dt); drawRadar(); }
+        if (G.mode === 'drive') { if (G.space) updateFlight(dt); else updateDrive(dt); drawRadar(); }
         else if (G.build) updateBuildCamera(dt);
         animateParts(dt, now / 1000);
         G.stars.position.copy(camera.position);
