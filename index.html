@@ -125,8 +125,12 @@
                 <span data-i18n="enterArena">Enter Arena</span>
                 <i class="fa-solid fa-gamepad"></i>
             </button>
+            <button type="button" onclick="openMissions()" class="px-8 py-3.5 rounded-full bg-gradient-to-r from-starGold to-amber-500 text-slate-950 font-orbitron font-bold text-sm uppercase tracking-wider hover:scale-105 transition-all shadow-lg shadow-starGold/30 flex items-center space-x-2 rtl:space-x-reverse">
+                <span data-i18n="beRelic">Be the Relic</span>
+                <i class="fa-solid fa-user-astronaut"></i>
+            </button>
         </div>
-        <p data-i18n="arenaHint" class="text-xs text-slate-400 mt-4">New: drive a rover in 3D and rebuild the relics part by part.</p>
+        <p data-i18n="arenaHint" class="text-xs text-slate-400 mt-4">Drive and fly in 3D to rebuild the relics, or become one and live its real mission from launch to the end.</p>
 
         <!-- Quick Stats Counter -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12 max-w-4xl mx-auto">
@@ -436,6 +440,7 @@
             <!-- Modal Footer -->
             <div class="p-4 bg-slate-900/80 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
                 <span data-i18n="datasetLabel">Facts: NASA mission pages · Photos: NASA Image Library</span>
+                <button type="button" onclick="const id = modalRelicId; closeModal(); openMissions(id);" class="px-5 py-2 rounded-xl bg-gradient-to-r from-starGold to-amber-500 text-slate-950 font-bold transition hover:scale-105 mx-2"><i class="fa-solid fa-user-astronaut mr-1 rtl:ml-1"></i> <span data-i18n="beThisRelic">Be this relic</span></button>
                 <button onclick="closeModal()" data-i18n="closeFile" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-medium transition">
                     Close File
                 </button>
@@ -573,5 +578,7 @@
     <script src="js/app.js"></script>
     <script src="js/extras.js"></script>
     <script src="js/arena.js"></script>
+    <script src="js/missions-data.js"></script>
+    <script src="js/missions.js"></script>
 </body>
 </html>

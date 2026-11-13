@@ -20,6 +20,7 @@ Rovers, landers, descent stages and probes finish their work and stay where they
 | **Relic Vault** | 28 relics, each with a story, the science it made possible, a fun fact, why it was left behind, and a quiz. |
 | **In Its Own Words** | Every relic introduces itself in first person. The story can be read aloud. |
 | **Relic Rescue Rover** | A 3D game with three worlds. Build a rover and drive across the Moon or Mars, or fly a scout ship through deep space to the Voyager and Pioneer probes. Rebuild each relic by choosing parts by the job they do, then switch it on to hear what it discovered. |
+| **Be the Relic** | A mission simulator. The child becomes one machine and lives its real mission in order: launch day, the journey, the landing or flyby, the things it really did, and the way it really ended. All 28 relics have a mission, each with real dates. |
 | **Surface Landing Map** | NASA maps of the Moon and Mars with every relic pinned at its real landing coordinates. |
 | **Timeline** | Sixty years of explorers in order, from Ranger (1964) to Ingenuity (2024). |
 | **Deep Space wing** | Voyager 1 and 2 and Pioneer 10 and 11, the travellers that never stopped. |
@@ -56,6 +57,8 @@ js/translations.js      English and Arabic interface text and relic translations
 js/app.js               Relic data, cards, map, quiz, gallery, narration, certificate
 js/extras.js            Deep Space wing, relic voices, map coordinates, timeline
 js/arena.js             Relic Rescue Rover, the 3D game
+js/missions-data.js     Be the Relic: the real timeline of each mission
+js/missions.js          Be the Relic: the mission simulator
 js/tailwind-config.js   Theme colours and fonts
 assets/                 NASA maps of the Moon and Mars
 ```
