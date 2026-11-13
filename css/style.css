@@ -1,0 +1,379 @@
+/* Custom Styling & Glassmorphism Effects */
+body {
+    background-color: #080a15;
+    color: #f3f4f6;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+.font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+}
+
+.glass-card {
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-card:hover {
+    border-color: rgba(0, 242, 254, 0.5);
+    box-shadow: 0 0 25px rgba(0, 242, 254, 0.25);
+}
+
+.glow-text {
+    text-shadow: 0 0 15px rgba(0, 242, 254, 0.6);
+}
+
+.glow-title {
+    text-shadow: 0 0 20px rgba(127, 0, 255, 0.8), 0 0 35px rgba(0, 242, 254, 0.5);
+}
+
+/* Radar Pulse Animation for Map Hotspots */
+@keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.9; }
+    50% { transform: scale(1.4); opacity: 0.3; }
+    100% { transform: scale(0.95); opacity: 0.9; }
+}
+
+.radar-pulse {
+    animation: pulse-ring 2s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #080a15;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00f2fe;
+}
+
+/* Canvas Overlay */
+#bg-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Keyboard focus for relic cards and map hotspots */
+[data-relic-id]:focus-visible {
+    outline: 2px solid #00f2fe;
+    outline-offset: 3px;
+}
+
+/* ----------------------------------------------------
+   Hover photo preview (live NASA photos)
+---------------------------------------------------- */
+.relic-preview {
+    --rp-accent: #00f2fe;
+    --rp-x: -9999px;
+    --rp-y: -9999px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 60;
+    width: min(320px, calc(100vw - 24px));
+    pointer-events: none; /* never steals the hover from the card underneath */
+    transform: translate3d(var(--rp-x), var(--rp-y), 0);
+    will-change: transform;
+    visibility: hidden;
+    transition: visibility 0s linear 0.18s; /* keep it rendered while it fades out */
+}
+
+.relic-preview[data-target="Mars"] {
+    --rp-accent: #ff4b2b;
+}
+
+.relic-preview.is-visible {
+    visibility: visible;
+    transition-delay: 0s;
+}
+
+.rp-frame {
+    background: rgba(8, 10, 21, 0.94);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid color-mix(in srgb, var(--rp-accent) 45%, transparent);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6),
+                0 0 28px color-mix(in srgb, var(--rp-accent) 22%, transparent);
+    opacity: 0;
+    transform: translateY(6px) scale(0.97);
+    transition: opacity 0.16s ease, transform 0.2s ease;
+}
+
+.relic-preview.is-visible .rp-frame {
+    opacity: 1;
+    transform: none;
+}
+
+.rp-stage {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    background: #050712;
+    overflow: hidden;
+}
+
+/* Photos cross-fade and drift slowly while they are on screen */
+.rp-slide {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+}
+
+.rp-slide.is-active {
+    opacity: 1;
+    animation: rp-drift 7s ease-out both;
+}
+
+@keyframes rp-drift {
+    from { transform: scale(1); }
+    to   { transform: scale(1.08); }
+}
+
+.rp-state {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    overflow: hidden;
+}
+
+.rp-state.is-off {
+    display: none;
+}
+
+/* Viewfinder corners */
+.rp-corner {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border: 0 solid var(--rp-accent);
+    opacity: 0.85;
+    pointer-events: none;
+}
+.rp-corner-tl { top: 8px;    left: 8px;   border-top-width: 2px;    border-left-width: 2px; }
+.rp-corner-tr { top: 8px;    right: 8px;  border-top-width: 2px;    border-right-width: 2px; }
+.rp-corner-bl { bottom: 8px; left: 8px;   border-bottom-width: 2px; border-left-width: 2px; }
+.rp-corner-br { bottom: 8px; right: 8px;  border-bottom-width: 2px; border-right-width: 2px; }
+
+/* One bar per photo, current one highlighted */
+.rp-dots {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 4px;
+    width: 60%;
+    justify-content: center;
+}
+
+.rp-dot {
+    flex: 1;
+    max-width: 26px;
+    height: 3px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.28);
+    transition: background 0.3s ease;
+}
+
+.rp-dot.is-active {
+    background: var(--rp-accent);
+}
+
+.rp-meta {
+    padding: 10px 14px 12px;
+}
+
+.rp-caption {
+    margin-top: 4px;
+    font-size: 11px;
+    line-height: 1.45;
+    color: #cbd5e1;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 2.9em; /* reserve two lines so the card never changes height */
+}
+
+.rp-credit {
+    margin-top: 4px;
+    font-size: 10px;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* The old name-only tooltip on map hotspots is replaced by the photo preview
+   on devices that can hover; touch screens keep it. */
+@media (hover: hover) and (pointer: fine) {
+    .hotspot-tip {
+        display: none !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .rp-frame,
+    .relic-preview {
+        transition: none;
+    }
+    .rp-slide {
+        transition: none;
+    }
+    .rp-slide.is-active,
+    .relic-preview .animate-scan {
+        animation: none;
+    }
+}
+
+/* ----------------------------------------------------
+   RELIC RESCUE ROVER — 3D arena game (js/arena.js)
+---------------------------------------------------- */
+body.arena-open { overflow: hidden; }
+.arena { position: fixed; inset: 0; z-index: 70; background: #02030a; color: #f3f4f6; user-select: none; -webkit-user-select: none; touch-action: none; }
+.arena [hidden] { display: none !important; }
+.arena-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+
+.arena-top { position: absolute; top: 0; left: 0; right: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 16px; }
+.arena-spacer { flex: 1; }
+.arena-chip { display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border-radius: 999px; font-size: 13px; font-weight: 700;
+    background: rgba(8, 10, 21, 0.72); border: 1px solid rgba(0, 242, 254, 0.35); color: #00f2fe; backdrop-filter: blur(6px); }
+.arena-chip-gold { color: #ffd700; border-color: rgba(255, 215, 0, 0.4); }
+.arena-btn { padding: 7px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #f3f4f6; cursor: pointer;
+    background: rgba(30, 41, 59, 0.85); border: 1px solid rgba(148, 163, 184, 0.4); transition: transform 0.15s, background 0.15s; }
+.arena-btn:hover { background: rgba(51, 65, 85, 0.95); transform: translateY(-1px); }
+.arena-btn-red { border-color: rgba(255, 75, 43, 0.6); color: #ffb4a4; }
+.arena-btn-main { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; padding: 11px 26px; font-size: 15px; color: #080a15;
+    background: linear-gradient(90deg, #00f2fe, #4f8dff); border: 0; }
+.arena-btn-main:hover { background: linear-gradient(90deg, #5ff7ff, #77a6ff); }
+.arena-link { background: none; border: 0; color: #94a3b8; font-size: 12px; text-decoration: underline; cursor: pointer; padding: 6px; }
+.arena-link.is-armed { color: #ff4b2b; font-weight: 700; }
+
+.arena-nearest { position: absolute; top: 62px; left: 50%; transform: translateX(-50%); padding: 5px 14px; border-radius: 999px; font-size: 12px;
+    background: rgba(8, 10, 21, 0.65); color: #cbd5e1; white-space: nowrap; }
+.arena-radar { position: absolute; bottom: 16px; inset-inline-end: 16px; width: 150px; height: 150px; }
+.arena-action { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); padding: 14px 28px; border-radius: 999px; border: 0; cursor: pointer;
+    font-size: 16px; font-weight: 800; color: #080a15; background: linear-gradient(90deg, #ffd700, #ffb347); box-shadow: 0 0 28px rgba(255, 215, 0, 0.55);
+    animation: arena-pulse 1.2s ease-in-out infinite; white-space: nowrap; }
+.arena-action kbd { margin-inline-start: 6px; padding: 1px 7px; border-radius: 6px; background: rgba(8, 10, 21, 0.25); font-family: inherit; font-size: 13px; }
+@keyframes arena-pulse { 50% { box-shadow: 0 0 44px rgba(255, 215, 0, 0.9); } }
+
+.arena-stick { position: absolute; bottom: 24px; inset-inline-start: 24px; width: 120px; height: 120px; border-radius: 50%;
+    background: rgba(8, 10, 21, 0.5); border: 2px solid rgba(0, 242, 254, 0.45); display: flex; align-items: center; justify-content: center; }
+.arena-knob { width: 52px; height: 52px; border-radius: 50%; background: rgba(0, 242, 254, 0.75); pointer-events: none; }
+.arena-jump { position: absolute; bottom: 184px; inset-inline-end: 34px; width: 84px; height: 84px; border-radius: 50%; border: 2px solid rgba(127, 0, 255, 0.8);
+    background: rgba(127, 0, 255, 0.45); color: #fff; font-weight: 800; font-size: 14px; }
+
+.arena-panel { position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); width: min(620px, calc(100% - 24px)); max-height: 62vh; overflow-y: auto;
+    padding: 16px 18px 18px; border-radius: 20px; text-align: center; background: rgba(10, 14, 30, 0.9); border: 1px solid rgba(0, 242, 254, 0.35);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6); backdrop-filter: blur(10px); user-select: text; -webkit-user-select: text; touch-action: pan-y; }
+.arena-panel-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px; font-size: 12px; font-weight: 700; color: #00f2fe; margin-bottom: 8px; }
+.arena-step { color: #94a3b8; }
+.arena-panel-title { font-family: 'Orbitron', 'Cairo', sans-serif; font-size: 19px; font-weight: 800; color: #fff; margin-bottom: 6px; }
+.arena-gold { color: #ffd700; }
+.arena-intro { font-size: 13px; color: #ffd700; font-weight: 700; margin-bottom: 4px; }
+.arena-clue { font-size: 17px; font-weight: 700; line-height: 1.45; color: #fff; margin: 4px 0 12px; }
+.arena-choices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.arena-choices-quiz { grid-template-columns: repeat(2, 1fr); }
+.arena-choice { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 64px; padding: 10px 8px; border-radius: 14px;
+    cursor: pointer; font-size: 14px; font-weight: 700; color: #e2e8f0; background: rgba(30, 41, 59, 0.9); border: 1px solid rgba(148, 163, 184, 0.35);
+    transition: transform 0.12s, border-color 0.12s, background 0.12s; }
+.arena-choice i { font-size: 22px; color: #00f2fe; }
+.arena-choice:hover:not(:disabled) { transform: translateY(-2px); border-color: #00f2fe; background: rgba(0, 242, 254, 0.12); }
+.arena-choice.is-wrong { opacity: 0.45; border-color: #ff4b2b; cursor: default; animation: arena-shake 0.3s; }
+@keyframes arena-shake { 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+.arena-feedback { min-height: 20px; margin-top: 10px; font-size: 13px; color: #fda4af; }
+.arena-correct { font-size: 17px; font-weight: 800; color: #34d399; margin: 4px 0 8px; }
+.arena-fact { font-size: 14px; line-height: 1.6; color: #e2e8f0; padding: 10px 12px; border-radius: 12px; background: rgba(255, 215, 0, 0.08);
+    border: 1px solid rgba(255, 215, 0, 0.25); }
+.arena-desc { font-size: 14px; line-height: 1.6; color: #cbd5e1; margin: 6px 0 10px; }
+.arena-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; font-size: 12px; color: #00f2fe; }
+.arena-keys { font-size: 13px; color: #94a3b8; margin-top: 10px; }
+.arena-quiz-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #ffd700; margin: 14px 0 2px; }
+.arena-stars-row { font-size: 30px; color: #ffd700; letter-spacing: 6px; margin: 4px 0; }
+.arena-stars-row .is-off { color: #334155; }
+.arena-leave { display: block; margin: 4px auto 0; }
+
+.arena-menu { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; padding: 16px; overflow-y: auto; touch-action: pan-y;
+    background: radial-gradient(ellipse at top, #1b1147 0%, #080a15 60%, #02030a 100%); }
+.arena-menu-box { width: min(760px, 100%); text-align: center; margin: auto; }
+.arena-title { font-family: 'Orbitron', 'Cairo', sans-serif; font-size: clamp(26px, 6vw, 44px); font-weight: 900; line-height: 1.2;
+    background: linear-gradient(90deg, #00f2fe, #fff, #b06bff); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.arena-title i { color: #00f2fe; -webkit-text-fill-color: #00f2fe; }
+.arena-tagline { font-size: 15px; line-height: 1.6; color: #cbd5e1; max-width: 560px; margin: 10px auto 18px; }
+.arena-choose { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #94a3b8; margin-bottom: 10px; }
+.arena-worlds { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.arena-world { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 22px 16px; border-radius: 22px; cursor: pointer; color: #fff;
+    border: 1px solid rgba(148, 163, 184, 0.35); transition: transform 0.18s, box-shadow 0.18s; }
+.arena-world:hover { transform: translateY(-4px) scale(1.02); }
+.arena-world-moon { background: linear-gradient(160deg, #3b4252, #12151f); }
+.arena-world-moon:hover { box-shadow: 0 0 34px rgba(224, 230, 237, 0.35); }
+.arena-world-mars { background: linear-gradient(160deg, #a8421f, #2a0f08); }
+.arena-world-mars:hover { box-shadow: 0 0 34px rgba(255, 75, 43, 0.45); }
+.arena-world-icon { font-size: 46px; }
+.arena-world-name { font-family: 'Orbitron', 'Cairo', sans-serif; font-size: 22px; font-weight: 800; }
+.arena-world-info { font-size: 13px; color: #e2e8f0; min-height: 38px; }
+.arena-world-bar { width: 100%; height: 8px; border-radius: 99px; background: rgba(0, 0, 0, 0.45); overflow: hidden; }
+.arena-world-bar span { display: block; height: 100%; background: linear-gradient(90deg, #ffd700, #34d399); }
+.arena-world-progress { font-size: 12px; color: #cbd5e1; }
+.arena-world-go { margin-top: 4px; padding: 8px 20px; border-radius: 999px; font-size: 14px; font-weight: 800; color: #080a15; background: #00f2fe; }
+.arena-menu-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 14px; margin-top: 20px; }
+
+.arena-toast { position: absolute; top: 96px; left: 50%; transform: translateX(-50%); padding: 10px 20px; border-radius: 14px; font-weight: 700; font-size: 14px;
+    background: rgba(8, 10, 21, 0.85); border: 1px solid #ffd700; color: #ffd700; }
+
+@media (max-width: 560px) {
+    .arena-worlds, .arena-choices-quiz { grid-template-columns: 1fr; }
+    .arena-choices { grid-template-columns: 1fr; }
+    .arena-choice { flex-direction: row; min-height: 48px; }
+    .arena-radar { width: 104px; height: 104px; bottom: auto; top: 58px; }
+    .arena-clue { font-size: 15px; }
+    .arena-action { bottom: 170px; font-size: 14px; padding: 12px 20px; }
+}
+
+/* ----------------------------------------------------
+   IN ITS OWN WORDS, TIMELINE, INFO CARDS
+---------------------------------------------------- */
+.relic-voice { position: relative; padding: 14px 18px; border-radius: 18px; background: linear-gradient(135deg, rgba(0, 242, 254, 0.1), rgba(127, 0, 255, 0.12));
+    border: 1px solid rgba(0, 242, 254, 0.35); }
+.relic-voice #modal-voice { font-style: italic; }
+.info-card { padding: 14px 16px; border-radius: 16px; background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(51, 65, 85, 0.8); }
+
+.tl-track { display: flex; gap: 0; overflow-x: auto; padding: 8px 4px 14px; scroll-snap-type: x proximity; }
+.tl-item { position: relative; flex: 0 0 150px; display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 6px 8px 10px; cursor: pointer;
+    background: none; border: 0; color: #e2e8f0; text-align: center; scroll-snap-align: start; border-radius: 14px; transition: background 0.15s, transform 0.15s; }
+.tl-item::before { content: ''; position: absolute; top: 51px; left: 0; right: 0; height: 2px; background: rgba(148, 163, 184, 0.35); }
+.tl-item:hover, .tl-item:focus-visible { background: rgba(30, 41, 59, 0.7); transform: translateY(-3px); outline: none; }
+.tl-year { font-family: 'Orbitron', 'Cairo', sans-serif; font-size: 12px; font-weight: 700; color: var(--tl); white-space: nowrap; }
+.tl-dot { position: relative; z-index: 1; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px;
+    background: #0b1020; border: 2px solid var(--tl); color: var(--tl); }
+.tl-name { font-size: 12px; font-weight: 700; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+.tl-where { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: #94a3b8; }
+
+/* Arena: the "switch it on" discovery step */
+.arena-voice { font-size: 15px; font-style: italic; line-height: 1.6; color: #f1f5f9; padding: 10px 14px; margin-bottom: 10px; border-radius: 14px;
+    background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(127, 0, 255, 0.14)); border: 1px solid rgba(0, 242, 254, 0.35); }
+.arena-found-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #34d399; margin: 10px 0 4px; }
