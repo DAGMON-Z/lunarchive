@@ -380,3 +380,20 @@ body.arena-open { overflow: hidden; }
 .arena-voice { font-size: 15px; font-style: italic; line-height: 1.6; color: #f1f5f9; padding: 10px 14px; margin-bottom: 10px; border-radius: 14px;
     background: linear-gradient(135deg, rgba(0, 242, 254, 0.12), rgba(127, 0, 255, 0.14)); border: 1px solid rgba(0, 242, 254, 0.35); }
 .arena-found-title { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #34d399; margin: 10px 0 4px; }
+
+/* Arena: the "How to play" screen shown before each world */
+.arena-panel.arena-howto { bottom: auto; top: 50%; transform: translate(-50%, -50%); width: min(760px, calc(100% - 24px)); max-height: 88vh; padding: 22px 24px 24px; }
+.arena-how-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 12px 0 4px; text-align: start; }
+.arena-how-box { padding: 14px 16px; border-radius: 16px; background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(51, 65, 85, 0.9); }
+.arena-how-head { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #ffd700; margin-bottom: 10px; }
+.arena-how-steps { list-style: decimal; padding-inline-start: 22px; display: grid; gap: 8px; font-size: 15px; line-height: 1.45; color: #f1f5f9; }
+.arena-how-steps li::marker { color: #00f2fe; font-weight: 800; }
+.arena-how-keys { list-style: none; display: grid; gap: 9px; font-size: 15px; color: #f1f5f9; }
+.arena-how-keys li { display: flex; align-items: center; gap: 12px; }
+.arena-keys-set { display: inline-flex; direction: ltr; gap: 5px; min-width: 96px; color: #00f2fe; font-size: 20px; }
+.arena-key { display: inline-flex; align-items: center; justify-content: center; min-width: 36px; height: 36px; padding: 0 8px; border-radius: 9px;
+    font-family: 'Orbitron', 'Cairo', sans-serif; font-size: 14px; font-weight: 800; color: #080a15; background: #e2e8f0;
+    border-bottom: 4px solid #94a3b8; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5); }
+.arena-key.is-wide { min-width: 84px; font-size: 12px; }
+.arena-how-note { margin-top: 10px; font-size: 12px; color: #94a3b8; }
+@media (max-width: 640px) { .arena-how-grid { grid-template-columns: 1fr; } }

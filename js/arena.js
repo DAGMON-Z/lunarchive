@@ -62,6 +62,21 @@
             flyKeys: 'Fly: W thrust, S brake, A D turn  ·  Up / down: Space / Shift  ·  Rebuild: E',
             flyTouch: 'Use the joystick to fly. The ship lines itself up with the nearest probe.',
             flyIntro: 'Follow the radar to four silent probes drifting far from the Sun.',
+            howTitle: 'How to play',
+            howGoal: 'Your mission',
+            howControls: 'Controls',
+            howStep1: 'Follow the radar to a glowing beacon.',
+            howStep1Deep: 'Follow the radar to a silent probe in a glowing cage.',
+            howStep2: 'Rebuild the relic: pick the part that does the job.',
+            howStep3: 'Switch it on, answer the question and win the badge.',
+            howFirst: 'First you will build your own rover.',
+            cForward: 'Forward', cBack: 'Back', cTurn: 'Turn left / right', cJump: 'Jump', cRebuild: 'Rebuild a relic',
+            cThrust: 'Speed up', cBrake: 'Slow down', cUp: 'Go up', cDown: 'Go down',
+            cArrows: 'The arrow keys work too.',
+            cStick: 'Joystick: drive and turn', cStickFly: 'Joystick: fly and turn',
+            cJumpBtn: 'Purple button: jump', cUpBtn: 'Purple button: go up', cGold: 'Gold button: rebuild a relic',
+            keySpace: 'Space',
+            howStart: 'Start',
             rise: 'Up',
             signal: 'A radio message from this far away takes about {h} hours to reach Earth.',
             above: 'above you', below: 'below you'
@@ -110,6 +125,21 @@
             flyKeys: 'الطيران: W للدفع، S للكبح، A و D للدوران  ·  أعلى / أسفل: المسافة / Shift  ·  البناء: E',
             flyTouch: 'استخدم عصا التحكم للطيران. تضبط السفينة ارتفاعها مع أقرب مسبار.',
             flyIntro: 'اتبع الرادار إلى أربعة مسابير صامتة تنجرف بعيداً عن الشمس.',
+            howTitle: 'طريقة اللعب',
+            howGoal: 'مهمتك',
+            howControls: 'أزرار التحكم',
+            howStep1: 'اتبع الرادار إلى عمود مضيء.',
+            howStep1Deep: 'اتبع الرادار إلى مسبار صامت داخل قفص مضيء.',
+            howStep2: 'أعد بناء الأثر: اختر القطعة التي تؤدي المهمة.',
+            howStep3: 'شغّله، وأجب عن السؤال، واربح الشارة.',
+            howFirst: 'أولاً ستبني مركبتك بنفسك.',
+            cForward: 'إلى الأمام', cBack: 'إلى الخلف', cTurn: 'الدوران يساراً / يميناً', cJump: 'القفز', cRebuild: 'إعادة بناء أثر',
+            cThrust: 'زيادة السرعة', cBrake: 'تخفيف السرعة', cUp: 'الصعود', cDown: 'النزول',
+            cArrows: 'مفاتيح الأسهم تعمل أيضاً.',
+            cStick: 'عصا التحكم: القيادة والدوران', cStickFly: 'عصا التحكم: الطيران والدوران',
+            cJumpBtn: 'الزر البنفسجي: القفز', cUpBtn: 'الزر البنفسجي: الصعود', cGold: 'الزر الذهبي: إعادة بناء أثر',
+            keySpace: 'المسافة',
+            howStart: 'ابدأ',
             rise: 'أعلى',
             signal: 'تحتاج الرسالة اللاسلكية من هذا البعد إلى نحو {h} ساعة لتصل إلى الأرض.',
             above: 'فوقك', below: 'تحتك'
@@ -978,6 +1008,7 @@
         ui.top.hidden = mode === 'menu';
         ui.radar.hidden = mode !== 'drive';
         ui.panel.hidden = mode !== 'build' && mode !== 'info';
+        ui.panel.classList.remove('arena-howto');
         const touch = isTouch();
         ui.stick.hidden = !(mode === 'drive' && touch);
         ui.jump.hidden = !(mode === 'drive' && touch);
@@ -989,15 +1020,58 @@
         if (!G || G.name !== name) G = name === 'Deep' ? createSpace() : createWorld(name);
         camera.far = G.space ? 6000 : 900;
         camera.updateProjectionMatrix();
-        if (G.space) {
-            updateHud();
-            setMode('drive');
-            toast(tr('flyIntro') + ' ' + tr(isTouch() ? 'flyTouch' : 'flyKeys'));
-            return;
-        }
         updateHud();
-        if (!save.rover) startBuild(null);
-        else setMode('drive');
+        showHowTo();
+    }
+
+    // The "How to play" screen shown before every world: the mission and the controls
+    function showHowTo() {
+        const space = !!G.space;
+        const needRover = !space && !save.rover;
+        // Put the camera behind the rover or ship so the world is visible behind the card
+        const fx = Math.sin(G.heading), fz = Math.cos(G.heading);
+        camera.position.set(G.pos.x - fx * 11, G.pos.y + 5, G.pos.z - fz * 11);
+        camera.lookAt(G.pos.x + fx * 4, G.pos.y + 1.5, G.pos.z + fz * 4);
+        if (space) G.rover.group.position.set(G.pos.x, G.pos.y - 0.9, G.pos.z);
+
+        const key = label => '<kbd class="arena-key' + (label.length > 1 ? ' is-wide' : '') + '">' + esc(label) + '</kbd>';
+        const row = (keys, text) => '<li><span class="arena-keys-set">' + keys.map(key).join('') + '</span><span>' + esc(tr(text)) + '</span></li>';
+        const tip = (icon, text) => '<li><span class="arena-keys-set"><i class="fa-solid ' + icon + '"></i></span><span>' + esc(tr(text)) + '</span></li>';
+        let controls;
+        if (isTouch()) {
+            controls = tip('fa-circle-dot', space ? 'cStickFly' : 'cStick') + tip('fa-circle-up', space ? 'cUpBtn' : 'cJumpBtn') + tip('fa-screwdriver-wrench', 'cGold');
+        } else if (space) {
+            controls = row(['W'], 'cThrust') + row(['S'], 'cBrake') + row(['A', 'D'], 'cTurn') +
+                       row([tr('keySpace')], 'cUp') + row(['Shift'], 'cDown') + row(['E'], 'cRebuild');
+        } else {
+            controls = row(['W'], 'cForward') + row(['S'], 'cBack') + row(['A', 'D'], 'cTurn') +
+                       row([tr('keySpace')], 'cJump') + row(['E'], 'cRebuild');
+        }
+        setMode('info');
+        ui.panel.classList.add('arena-howto');
+        ui.panel.innerHTML =
+            '<h3 class="arena-panel-title"><i class="fa-solid fa-gamepad"></i> ' + esc(tr('howTitle')) + ': ' + esc(tr(G.name)) + '</h3>' +
+            '<div class="arena-how-grid">' +
+                '<div class="arena-how-box"><p class="arena-how-head"><i class="fa-solid fa-flag-checkered"></i> ' + esc(tr('howGoal')) + '</p>' +
+                    '<ol class="arena-how-steps">' +
+                        (needRover ? '<li>' + esc(tr('howFirst')) + '</li>' : '') +
+                        '<li>' + esc(tr(space ? 'howStep1Deep' : 'howStep1')) + '</li>' +
+                        '<li>' + esc(tr('howStep2')) + '</li>' +
+                        '<li>' + esc(tr('howStep3')) + '</li>' +
+                    '</ol>' +
+                    '<p class="arena-how-note">' + esc(tr(G.name + 'Info')) + '</p></div>' +
+                '<div class="arena-how-box"><p class="arena-how-head"><i class="fa-solid fa-keyboard"></i> ' + esc(tr('howControls')) + '</p>' +
+                    '<ul class="arena-how-keys">' + controls + '</ul>' +
+                    (isTouch() ? '' : '<p class="arena-how-note">' + esc(tr('cArrows')) + '</p>') + '</div>' +
+            '</div>' +
+            '<button type="button" class="arena-btn arena-btn-main" id="arena-start">' + esc(tr('howStart')) + ' <i class="fa-solid fa-play"></i></button>';
+        ui.panel.scrollTop = 0;
+        const start = ui.panel.querySelector('#arena-start');
+        start.addEventListener('click', () => {
+            click();
+            if (needRover) startBuild(null); else setMode('drive');
+        });
+        start.focus();
     }
 
     /* ---------------- 7. THE BUILDER ---------------- */
