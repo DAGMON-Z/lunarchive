@@ -26,8 +26,9 @@
       // the arm that stays still (viewer left), reaching outward
       '<g>' +
         '<path d="M76 92 Q46 104 34 138 Q30 152 42 156 Q54 158 58 146 Q66 124 88 112 Z" fill="url(#as-suit)" stroke="#6b7280" stroke-width="1.5"/>' +
+        '<path d="M30 169 L24 184 M35 172 L32 188 M41 172 L42 188 M46 169 L51 183 M50 157 L62 150" stroke="#6b7280" stroke-width="7.4" stroke-linecap="round" fill="none"/>' +
+          '<path d="M30 169 L24 184 M35 172 L32 188 M41 172 L42 188 M46 169 L51 183 M50 157 L62 150" stroke="#f1f3f6" stroke-width="5.4" stroke-linecap="round" fill="none"/>' +
         '<ellipse cx="38" cy="160" rx="13" ry="15" fill="url(#as-glove)" stroke="#6b7280" stroke-width="1.4"/>' +
-        '<path d="M26 150 Q14 152 16 164 Q22 170 30 164" fill="none" stroke="#9aa3b2" stroke-width="3" stroke-linecap="round"/>' +
       '</g>' +
       // torso
       '<path d="M74 84 Q110 70 146 84 Q158 128 148 176 Q110 190 72 176 Q62 128 74 84 Z" fill="url(#as-suit)" stroke="#6b7280" stroke-width="1.5"/>' +
@@ -46,9 +47,9 @@
         '<rect x="146" y="80" width="6" height="5" fill="#1d4ed8" transform="rotate(-24 153 84)"/>' +
         '<path d="M152.5 85.5 l12 -5.3 M151.6 87.6 l12 -5.3" stroke="#dc2626" stroke-width="1.1"/>' +
         '<g class="astro-hand">' +
+          '<path d="M181 31 L177 15 M187 28 L186 10 M193 28 L196 11 M199 31 L206 17 M178 42 L165 34" stroke="#6b7280" stroke-width="7.4" stroke-linecap="round" fill="none"/>' +
+          '<path d="M181 31 L177 15 M187 28 L186 10 M193 28 L196 11 M199 31 L206 17 M178 42 L165 34" stroke="#f1f3f6" stroke-width="5.4" stroke-linecap="round" fill="none"/>' +
           '<ellipse cx="190" cy="40" rx="13" ry="15" fill="url(#as-glove)" stroke="#6b7280" stroke-width="1.4"/>' +
-          '<path d="M182 30 L180 18 M188 27 L188 14 M194 28 L197 16 M200 32 L206 22" stroke="#e5e7eb" stroke-width="5.5" stroke-linecap="round"/>' +
-          '<path d="M182 30 L180 18 M188 27 L188 14 M194 28 L197 16 M200 32 L206 22" stroke="#6b7280" stroke-width="0.8" stroke-linecap="round" fill="none"/>' +
         '</g>' +
       '</g>' +
       // helmet, gold visor and its reflection
@@ -71,12 +72,12 @@
         const still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const size = () => Math.max(90, Math.min(190, window.innerWidth * 0.13));
         let w = size(), h = w * 280 / 220;
-        const A = { x: window.innerWidth * 0.78, y: window.innerHeight * 0.3, vx: -10, vy: 6, rot: -12, vr: 3, tx: 0, ty: 0, retarget: 0,
+        const A = { x: window.innerWidth * 0.78, y: window.innerHeight * 0.3, vx: -70, vy: 40, rot: -12, vr: 6, tx: 0, ty: 0, retarget: 0,
                     waveLeft: 0, nextWave: 3, pointer: null, greeted: false };
         const pickTarget = () => {
             A.tx = w * 0.5 + Math.random() * Math.max(1, window.innerWidth - w);
             A.ty = h * 0.5 + Math.random() * Math.max(1, window.innerHeight - h);
-            A.retarget = 7 + Math.random() * 7;
+            A.retarget = 4 + Math.random() * 5;
         };
         const wave = seconds => { A.waveLeft = seconds; el.classList.add('is-waving'); };
         pickTarget();
@@ -100,17 +101,17 @@
             // Drift: a gentle pull toward a spot that changes every few seconds
             A.retarget -= dt;
             if (A.retarget <= 0) pickTarget();
-            A.vx += (A.tx - A.x) * 0.014 * dt; A.vy += (A.ty - A.y) * 0.014 * dt;
-            A.vx *= 1 - dt * 0.12; A.vy *= 1 - dt * 0.12;
-            const sp = Math.hypot(A.vx, A.vy), max = 22;
+            A.vx += (A.tx - A.x) * 0.22 * dt; A.vy += (A.ty - A.y) * 0.22 * dt;
+            A.vx *= 1 - dt * 0.25; A.vy *= 1 - dt * 0.25;
+            const sp = Math.hypot(A.vx, A.vy), max = 95;
             if (sp > max) { A.vx *= max / sp; A.vy *= max / sp; }
             A.x += A.vx * dt; A.y += A.vy * dt;
             // stay on screen
             if (A.x < w * 0.4) { A.x = w * 0.4; A.vx = Math.abs(A.vx); } else if (A.x > window.innerWidth - w * 0.4) { A.x = window.innerWidth - w * 0.4; A.vx = -Math.abs(A.vx); }
             if (A.y < h * 0.4) { A.y = h * 0.4; A.vy = Math.abs(A.vy); } else if (A.y > window.innerHeight - h * 0.4) { A.y = window.innerHeight - h * 0.4; A.vy = -Math.abs(A.vy); }
             // a slow tumble that never goes fully upside down
-            A.vr += (Math.random() - 0.5) * 6 * dt - A.rot * 0.02 * dt;
-            A.vr = Math.max(-5, Math.min(5, A.vr));
+            A.vr += (Math.random() - 0.5) * 14 * dt - A.rot * 0.03 * dt;
+            A.vr = Math.max(-11, Math.min(11, A.vr));
             A.rot += A.vr * dt;
             if (Math.abs(A.rot) > 38) { A.rot = Math.sign(A.rot) * 38; A.vr *= -0.5; }
 
