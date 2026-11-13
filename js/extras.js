@@ -369,8 +369,6 @@ Object.assign(TRANSLATIONS.en, {
     srcMapsText: 'NASA Solar System Treks: LRO Wide Angle Camera mosaic of the Moon and Viking colour mosaic of Mars.',
     srcModelsTitle: '3D models',
     srcModelsText: 'The Arena models are simple shapes built by the team for this project. They are simplified and not to scale.',
-    aiTitle: 'How AI tools were used',
-    aiText: 'An AI assistant (Claude, by Anthropic) helped write the code, including the 3D Arena game, helped draft and translate text, and helped check facts against NASA pages. The team chose the content and is responsible for it.',
     footerProject: 'NASA Space Apps Challenge 2026 Project',
     footerChallenge: 'Challenge: "Abandoned but not Forgotten: Storytelling about NASA\'s Discarded Equipment on the Moon and Mars"',
     footerCrafted: 'Made for future astronauts'
@@ -403,8 +401,6 @@ Object.assign(TRANSLATIONS.ar, {
     srcMapsText: '«رحلات النظام الشمسي» من ناسا: خريطة القمر من الكاميرا الواسعة للمركبة LRO وخريطة المريخ الملوّنة من مهمة فايكنغ.',
     srcModelsTitle: 'النماذج ثلاثية الأبعاد',
     srcModelsText: 'نماذج الساحة أشكال بسيطة صنعها الفريق لهذا المشروع. وهي مبسّطة وليست بالمقياس الحقيقي.',
-    aiTitle: 'كيف استُخدمت أدوات الذكاء الاصطناعي',
-    aiText: 'ساعد مساعد ذكاء اصطناعي (Claude من Anthropic) في كتابة الشيفرة، ومنها لعبة الساحة ثلاثية الأبعاد، وفي صياغة النصوص وترجمتها، وفي مراجعة المعلومات على صفحات ناسا. والفريق هو من اختار المحتوى وهو المسؤول عنه.',
     footerProject: 'مشروع تحدي ناسا لتطبيقات الفضاء 2026',
     footerChallenge: 'التحدي: «مهجورة لكنها غير منسية: حكايات عن معدات ناسا المتروكة على القمر والمريخ»',
     footerCrafted: 'صُنع من أجل رواد فضاء المستقبل'

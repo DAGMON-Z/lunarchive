@@ -77,10 +77,6 @@ assets/                 NASA maps of the Moon and Mars
 
 The 3D models in the game are simple shapes built for this project. They are simplified and not to scale.
 
-## Use of AI tools
-
-An AI assistant (Claude, by Anthropic) helped write the code, including the 3D Arena game, helped draft and translate text, and helped check facts against NASA pages. The team chose the content and is responsible for it.
-
 ## Licence
 
 Code is released under the [MIT Licence](LICENSE). NASA imagery and data are in the public domain and are credited to NASA. This project is not endorsed by NASA.
