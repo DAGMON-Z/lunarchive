@@ -886,9 +886,15 @@
         camera.updateProjectionMatrix();
     }
 
+    const KEY_CODES = { KeyW: 'w', KeyA: 'a', KeyS: 's', KeyD: 'd', KeyE: 'e', Space: ' ', ShiftLeft: 'Shift', ShiftRight: 'Shift',
+                        ArrowUp: 'ArrowUp', ArrowDown: 'ArrowDown', ArrowLeft: 'ArrowLeft', ArrowRight: 'ArrowRight',
+                        Enter: 'Enter', NumpadEnter: 'Enter', Escape: 'Escape' };
     function onKey(e, down) {
         if (!ui || ui.root.hidden) return;
-        const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+        // Use the physical key, not the letter it types, so the controls also work on an
+        // Arabic (or any other) keyboard layout, where the W key types a different letter.
+        const k = KEY_CODES[e.code] || (e.key.length === 1 ? e.key.toLowerCase() : e.key);
+        if (e.ctrlKey || e.metaKey || e.altKey) return;
         if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', ' '].includes(k)) e.preventDefault();
         input.keys[k] = down;
         if (!down) return;
@@ -1318,6 +1324,8 @@
         else G.vel.y -= G.vel.y * Math.min(1, dt * 2);
 
         // A little drag keeps it playable, and there is a top speed
+        G.vel.y = Math.max(-18, Math.min(18, G.vel.y));
+        if (Math.abs(G.pos.y) > 140) { G.pos.y = Math.sign(G.pos.y) * 140; G.vel.y = 0; }
         const drag = Math.max(0, 1 - dt * 0.22);
         G.vel.x *= drag; G.vel.z *= drag;
         const sp = Math.hypot(G.vel.x, G.vel.z);

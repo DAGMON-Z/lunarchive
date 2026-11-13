@@ -1906,7 +1906,9 @@ function getCertStats() {
     const marsTotal = RELICS_DATA.filter(r => r.target === 'Mars').length;
     const moonCount = RELICS_DATA.filter(r => r.target === 'Moon' && earnedIds.includes(r.id)).length;
     const marsCount = RELICS_DATA.filter(r => r.target === 'Mars' && earnedIds.includes(r.id)).length;
-    return { total, count, earnedIds, moonTotal, marsTotal, moonCount, marsCount };
+    const deepTotal = RELICS_DATA.filter(r => r.target === 'Deep').length;
+    const deepCount = RELICS_DATA.filter(r => r.target === 'Deep' && earnedIds.includes(r.id)).length;
+    return { total, count, earnedIds, moonTotal, marsTotal, moonCount, marsCount, deepTotal, deepCount };
 }
 
 function getExplorerRankKey(count, total) {
@@ -2120,7 +2122,9 @@ function drawCertificate(canvas, name, stats) {
     const moonSeg = { text: `${certTr('moonShort')} ${certNum(stats.moonCount)}/${certNum(stats.moonTotal)}`, color: '#e0e6ed' };
     const sepSeg = { text: '    |    ', color: '#475569' };
     const marsSeg = { text: `${certTr('mars')} ${certNum(stats.marsCount)}/${certNum(stats.marsTotal)}`, color: '#ff4b2b' };
-    drawCenteredSegments(ctx, isAr ? [marsSeg, sepSeg, moonSeg] : [moonSeg, sepSeg, marsSeg], 508);
+    const deepSeg = { text: `${targetLabel('Deep')} ${certNum(stats.deepCount)}/${certNum(stats.deepTotal)}`, color: '#b06bff' };
+    const segs = stats.deepTotal ? [moonSeg, sepSeg, marsSeg, sepSeg, deepSeg] : [moonSeg, sepSeg, marsSeg];
+    drawCenteredSegments(ctx, isAr ? segs.slice().reverse() : segs, 508);
 
     // Rank
     ctx.fillStyle = '#94a3b8';
