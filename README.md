@@ -38,8 +38,8 @@ Rovers, landers, descent stages and probes finish their work and stay where they
 The site is plain HTML, CSS and JavaScript. There is nothing to build.
 
 ```bash
-git clone https://github.com/DAGMON-Z/space-apps-nasa-relics.git
-cd space-apps-nasa-relics
+git clone https://github.com/DAGMON-Z/lunarchive.git
+cd lunarchive
 python3 -m http.server 8000
 ```
 
