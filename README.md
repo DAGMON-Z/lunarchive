@@ -59,6 +59,7 @@ js/extras.js            Deep Space wing, relic voices, map coordinates, timeline
 js/arena.js             Relic Rescue Rover, the 3D game
 js/missions-data.js     Be the Relic: the real timeline of each mission
 js/missions.js          Be the Relic: the mission simulator
+js/astronaut.js         The astronaut who floats across the background and waves
 js/tailwind-config.js   Theme colours and fonts
 assets/                 NASA maps of the Moon and Mars
 ```

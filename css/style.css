@@ -472,3 +472,21 @@ body.arena-open { overflow: hidden; }
 .mission-card-date { font-size: 11px; color: #cbd5e1; }
 .mission-card-done { font-size: 11px; font-weight: 800; color: #34d399; }
 @media (max-width: 560px) { .mission-text { font-size: 14px; } .mission-panel { max-height: 54vh; } .mission-dots i { width: 12px; } }
+
+/* ----------------------------------------------------
+   THE FLOATING ASTRONAUT (js/astronaut.js)
+---------------------------------------------------- */
+.astronaut { position: fixed; top: 0; left: 0; z-index: -1; pointer-events: none; will-change: transform; opacity: 0.92;
+    filter: drop-shadow(0 0 18px rgba(0, 242, 254, 0.28)) drop-shadow(0 10px 22px rgba(0, 0, 0, 0.55)); }
+.astronaut svg { display: block; width: 100%; height: auto; overflow: visible; }
+.astro-arm { transform-box: view-box; transform-origin: 142px 86px; transition: transform 0.5s ease; }
+.astro-hand { transform-box: view-box; transform-origin: 188px 46px; }
+.astronaut.is-waving .astro-arm { animation: astro-wave 0.65s ease-in-out infinite alternate; }
+.astronaut.is-waving .astro-hand { animation: astro-hand 0.325s ease-in-out infinite alternate; }
+@keyframes astro-wave { from { transform: rotate(-16deg); } to { transform: rotate(14deg); } }
+@keyframes astro-hand { from { transform: rotate(-12deg); } to { transform: rotate(12deg); } }
+@media (max-width: 640px) { .astronaut { opacity: 0.6; } }
+.mission-picker-foot { display: flex; justify-content: center; margin-top: 26px; }
+.mission-reset { background: none; border: 1px solid rgba(148, 163, 184, 0.35); color: #94a3b8; font-size: 12px; font-weight: 600; padding: 7px 16px; border-radius: 999px; cursor: pointer; }
+.mission-reset:hover { color: #e2e8f0; border-color: #94a3b8; }
+.mission-reset.is-armed { color: #fff; background: #b91c1c; border-color: #ef4444; }

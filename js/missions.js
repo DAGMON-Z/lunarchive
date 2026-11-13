@@ -17,7 +17,8 @@
         en: {
             title: 'Be the Relic', pickTitle: 'Choose a machine and live its mission',
             pickDesc: 'Each mission follows the real one, from launch day to the day it was left behind.',
-            flown: 'Mission flown', exit: 'Exit', missions: 'Missions', next: 'Next', finish: 'Finish',
+            flown: 'Mission flown', flownCount: '{n} of {t} missions flown',
+            reset: 'Reset missions', resetSure: 'Tap again to erase flown missions', resetEmpty: 'No missions flown yet', exit: 'Exit', missions: 'Missions', next: 'Next', finish: 'Finish',
             Moon: 'The Moon', Mars: 'Mars', Deep: 'Deep Space', today: 'Today',
             sLaunch: 'Launch day', sCruise: 'The journey', sEnd: 'The end of the mission', sAlive: 'Still working today',
             aPowered: 'The landing', aAirbag: 'The landing', aSkycrane: 'The landing', aImpact: 'Impact', aOrbit: 'Arriving at the Moon',
@@ -43,7 +44,8 @@
         ar: {
             title: 'كن أنت الأثر', pickTitle: 'اختر آلة وعش مهمتها',
             pickDesc: 'كل مهمة تتبع المهمة الحقيقية، من يوم الإقلاع إلى اليوم الذي تُركت فيه.',
-            flown: 'أُنجزت المهمة', exit: 'خروج', missions: 'المهمات', next: 'التالي', finish: 'إنهاء',
+            flown: 'أُنجزت المهمة', flownCount: 'أُنجزت {n} من {t} مهمة',
+            reset: 'إعادة ضبط المهمات', resetSure: 'اضغط مرة أخرى لمسح المهمات المنجزة', resetEmpty: 'لم تُنجز أي مهمة بعد', exit: 'خروج', missions: 'المهمات', next: 'التالي', finish: 'إنهاء',
             Moon: 'القمر', Mars: 'المريخ', Deep: 'الفضاء السحيق', today: 'اليوم',
             sLaunch: 'يوم الإقلاع', sCruise: 'الرحلة', sEnd: 'نهاية المهمة', sAlive: 'ما زال يعمل حتى اليوم',
             aPowered: 'الهبوط', aAirbag: 'الهبوط', aSkycrane: 'الهبوط', aImpact: 'الاصطدام', aOrbit: 'الوصول إلى القمر',
@@ -155,9 +157,28 @@
             '<div class="mission-picker-head"><h2><i class="fa-solid fa-user-astronaut"></i> ' + esc(tr('title')) + '</h2>' +
             '<button type="button" class="mission-btn mission-btn-red" id="ms-close">' + esc(tr('exit')) + '</button></div>' +
             '<p class="mission-picker-title">' + esc(tr('pickTitle')) + '</p><p class="mission-picker-desc">' + esc(tr('pickDesc')) + '</p>' +
-            group('Moon') + group('Mars') + group('Deep') + '</div>';
+            '<p class="mission-picker-desc"><i class="fa-solid fa-medal"></i> ' + esc(tr('flownCount', { n: flown.filter(id => MISSIONS[id]).length, t: Object.keys(MISSIONS).length })) + '</p>' +
+            group('Moon') + group('Mars') + group('Deep') +
+            '<div class="mission-picker-foot"><button type="button" class="mission-reset" id="ms-reset"><i class="fa-solid fa-rotate-left"></i> ' + esc(tr('reset')) + '</button></div></div>';
         ui.picker.scrollTop = 0;
         ui.picker.querySelector('#ms-close').addEventListener('click', () => { click(); closeMissions(); });
+        // Reset: the first tap arms the button, the second one erases the flown missions
+        const resetBtn = ui.picker.querySelector('#ms-reset');
+        let armed = false, armTimer = 0;
+        const label = (key, icon) => { resetBtn.innerHTML = '<i class="fa-solid ' + icon + '"></i> ' + esc(tr(key)); };
+        resetBtn.addEventListener('click', () => {
+            click();
+            clearTimeout(armTimer);
+            if (!flown.length) { label('resetEmpty', 'fa-circle-info'); armTimer = setTimeout(() => label('reset', 'fa-rotate-left'), 1800); return; }
+            if (!armed) {
+                armed = true; resetBtn.classList.add('is-armed'); label('resetSure', 'fa-triangle-exclamation');
+                armTimer = setTimeout(() => { armed = false; resetBtn.classList.remove('is-armed'); label('reset', 'fa-rotate-left'); }, 4000);
+                return;
+            }
+            flown = [];
+            try { localStorage.removeItem(SAVE_KEY); } catch (e) { /* no storage */ }
+            showPicker();
+        });
         ui.picker.querySelectorAll('[data-mission]').forEach(b => b.addEventListener('click', () => { click(); startMission(b.dataset.mission); }));
     }
 
