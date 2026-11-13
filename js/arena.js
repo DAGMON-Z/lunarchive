@@ -63,7 +63,7 @@
             flyTouch: 'Use the joystick to fly. The ship lines itself up with the nearest probe.',
             flyIntro: 'Follow the radar to four silent probes drifting far from the Sun.',
             rise: 'Up',
-            signal: 'A radio message from here takes about {h} hours to reach Earth.',
+            signal: 'A radio message from this far away takes about {h} hours to reach Earth.',
             above: 'above you', below: 'below you'
         },
         ar: {
@@ -111,7 +111,7 @@
             flyTouch: 'استخدم عصا التحكم للطيران. تضبط السفينة ارتفاعها مع أقرب مسبار.',
             flyIntro: 'اتبع الرادار إلى أربعة مسابير صامتة تنجرف بعيداً عن الشمس.',
             rise: 'أعلى',
-            signal: 'تحتاج الرسالة اللاسلكية من هنا إلى نحو {h} ساعة لتصل إلى الأرض.',
+            signal: 'تحتاج الرسالة اللاسلكية من هذا البعد إلى نحو {h} ساعة لتصل إلى الأرض.',
             above: 'فوقك', below: 'تحتك'
         }
     };
@@ -172,11 +172,11 @@
     };
     Object.assign(PARTS, {
         bigdish: { icon: 'fa-satellite-dish',
-            en: ['Giant dish antenna', 'This machine is billions of kilometres from Earth and must still be heard. Which part sends its faint voice home?', 'The dish is wider than a car, yet the radio behind it is only about as strong as a fridge light bulb.'],
-            ar: ['الهوائي الطبقي العملاق', 'هذه الآلة تبعد مليارات الكيلومترات عن الأرض ويجب أن يُسمع صوتها. أي قطعة ترسل صوتها الخافت إلى الأرض؟', 'الطبق أعرض من سيارة، لكن الراديو خلفه لا تزيد قوته على مصباح الثلاجة تقريباً.'] },
+            en: ['Giant dish antenna', 'This machine is billions of kilometres from Earth and must still be heard. Which part sends its faint voice home?', 'The dish is wider than a car, yet the radio behind it uses only about as much power as a small light bulb.'],
+            ar: ['الهوائي الطبقي العملاق', 'هذه الآلة تبعد مليارات الكيلومترات عن الأرض ويجب أن يُسمع صوتها. أي قطعة ترسل صوتها الخافت إلى الأرض؟', 'الطبق أعرض من سيارة، لكن الراديو خلفه يستخدم طاقة لا تزيد على طاقة مصباح صغير تقريباً.'] },
         rtgboom: { icon: 'fa-radiation',
-            en: ['Nuclear power arm', 'Out here the Sun is only a bright star, far too weak for solar panels. Which part makes the electricity?', 'The nuclear batteries sit out on an arm so that their radiation stays away from the instruments.'],
-            ar: ['ذراع الطاقة النووية', 'الشمس هنا مجرد نجم لامع، وهي أضعف من أن تشغّل الألواح الشمسية. أي قطعة تصنع الكهرباء؟', 'توضع البطاريات النووية على ذراع بعيدة حتى يبقى إشعاعها بعيداً عن الأجهزة.'] },
+            en: ['Nuclear power arm', 'Out here the Sun is only the brightest dot in the sky, far too weak for solar panels. Which part makes the electricity?', 'The nuclear power units make electricity from heat. They sit out on an arm, away from the instruments.'],
+            ar: ['ذراع الطاقة النووية', 'الشمس هنا مجرد أسطع نقطة في السماء، وهي أضعف من أن تشغّل الألواح الشمسية. أي قطعة تصنع الكهرباء؟', 'وحدات الطاقة النووية تصنع الكهرباء من الحرارة. وهي موضوعة على ذراع بعيدة عن الأجهزة.'] },
         record: { icon: 'fa-record-vinyl',
             en: ['Message from Earth', 'One day, far in the future, someone might find this machine. Which part tells them who sent it?', 'The Voyagers carry a Golden Record of sounds and pictures. The Pioneers carry a plaque with a drawing of two people.'],
             ar: ['رسالة من الأرض', 'قد يعثر أحد على هذه الآلة يوماً ما في المستقبل البعيد. أي قطعة تخبره من أرسلها؟', 'تحمل مركبتا فوياجر أسطوانة ذهبية فيها أصوات وصور. وتحمل مركبتا بايونير لوحة عليها رسم لشخصين.'] },
@@ -589,8 +589,8 @@
     // Deep Space: no ground. Planets are scenery (not to scale); four probes drift far from the Sun.
     const SPACE_LIMIT = 900;
     const SPACE_SITES = {
-        'pioneer-10': { at: [-70, 6, 230], hours: 19 },
-        'pioneer-11': { at: [95, -10, 400], hours: 16 },
+        'pioneer-10': { at: [-70, 6, 230], hours: 20 },
+        'pioneer-11': { at: [95, -10, 400], hours: 17 },
         'voyager-2': { at: [60, 8, 640], hours: 20 },
         'voyager-1': { at: [-50, 14, 800], hours: 24 }
     };
