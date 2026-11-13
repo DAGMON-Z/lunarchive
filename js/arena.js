@@ -62,6 +62,7 @@
             flyKeys: 'Fly: W thrust, S brake, A D turn  ·  Up / down: Space / Shift  ·  Rebuild: E',
             flyTouch: 'Use the joystick to fly. The ship lines itself up with the nearest probe.',
             flyIntro: 'Follow the radar to four silent probes drifting far from the Sun.',
+            no3d: 'The 3D game cannot start on this device or browser.',
             howTitle: 'How to play',
             howGoal: 'Your mission',
             howControls: 'Controls',
@@ -125,6 +126,7 @@
             flyKeys: 'الطيران: W للدفع، S للكبح، A و D للدوران  ·  أعلى / أسفل: المسافة / Shift  ·  البناء: E',
             flyTouch: 'استخدم عصا التحكم للطيران. تضبط السفينة ارتفاعها مع أقرب مسبار.',
             flyIntro: 'اتبع الرادار إلى أربعة مسابير صامتة تنجرف بعيداً عن الشمس.',
+            no3d: 'لا يمكن تشغيل اللعبة ثلاثية الأبعاد على هذا الجهاز أو المتصفح.',
             howTitle: 'طريقة اللعب',
             howGoal: 'مهمتك',
             howControls: 'أزرار التحكم',
@@ -1531,7 +1533,17 @@
     function openArena() {
         if (typeof THREE === 'undefined') return;
         click();
-        if (!ui) createUI();
+        if (!ui) {
+            try { createUI(); } catch (e) {
+                // No 3D support on this device: say so next to the button instead of failing silently
+                const stale = document.getElementById('arena');
+                if (stale) stale.remove();
+                ui = null;
+                const hint = document.querySelector('[data-i18n="arenaHint"]');
+                if (hint) hint.textContent = tr('no3d');
+                return;
+            }
+        }
         ui.root.hidden = false;
         ui.root.dir = lang() === 'ar' ? 'rtl' : 'ltr';
         document.body.classList.add('arena-open');

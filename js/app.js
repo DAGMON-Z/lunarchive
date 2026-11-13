@@ -1760,8 +1760,25 @@ function startStoryReading() {
         storyState.timer = setTimeout(() => speaker(i + 1), storyGap(lines[i]));
     };
 
-    // No built-in voice on this device: say so on the button instead of calling an outside service
-    const speakOnline = () => finish(true);
+    // Plan B: used when the device has no reading voice for this language (common on Linux,
+    // and for Arabic on many computers). It plays the line through an online voice instead.
+    // If that cannot be reached either, the button says so.
+    const speakOnline = i => {
+        if (token !== storyState.token) return;
+        if (i >= lines.length) { finish(false); return; }
+        const line = lines[i];
+        const a = new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + langCode + '&q=' + encodeURIComponent(line.text));
+        a.defaultPlaybackRate = 0.92;
+        a.playbackRate = 0.92;
+        a.preservesPitch = true;
+        a.mozPreservesPitch = true;
+        a.webkitPreservesPitch = true;
+        storyState.audio = a;
+        a.onended = () => next(i, speakOnline);
+        a.onerror = () => { if (token === storyState.token) finish(true); };
+        const p = a.play();
+        if (p && p.catch) p.catch(() => { if (token === storyState.token) finish(true); });
+    };
 
     const speakLine = (i, voice) => {
         if (token !== storyState.token) return;
@@ -2303,7 +2320,8 @@ window.onload = function () {
     initCertificateName();
     updateLanguageUI();
     switchMap('Moon');
-    initBackground3D();
+    // The starfield is decoration: if this device cannot do 3D, the rest of the site must still start
+    try { initBackground3D(); } catch (e) { /* no WebGL on this device */ }
     initRelicPreview();
     initGallery();
     initStory();

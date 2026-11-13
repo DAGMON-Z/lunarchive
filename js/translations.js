@@ -94,7 +94,7 @@ const TRANSLATIONS = {
         galleryNext: 'Next photo',
         readStory: 'Read the story aloud',
         stopStory: 'Stop reading',
-        storyUnsupported: 'No reading voice on this device',
+        storyUnsupported: 'Could not play the voice. Check your internet.',
         storyIntro: 'Come closer, little space explorers, and listen. I have a story for you.',
         storyOutro: 'And that is the end of our story. See you on the next space adventure, my friends!',
         abandonedTitle: 'Why Was It Abandoned?'
@@ -194,7 +194,7 @@ const TRANSLATIONS = {
         galleryNext: 'الصورة التالية',
         readStory: 'استمع إلى القصة',
         stopStory: 'إيقاف القراءة',
-        storyUnsupported: 'لا يوجد صوت للقراءة على هذا الجهاز',
+        storyUnsupported: 'تعذر تشغيل الصوت. تحقق من اتصالك بالإنترنت.',
         storyIntro: 'تعالوا يا أصدقائي الصغار، واقتربوا مني قليلاً. سأحكي لكم حكاية من حكايات الفضاء.',
         storyOutro: 'وهكذا انتهت حكايتنا. إلى اللقاء في مغامرة فضائية جديدة يا أصدقائي!',
         abandonedTitle: 'لماذا تُركت؟'
