@@ -41,7 +41,7 @@ RELICS_DATA.push(
         icon: 'fa-satellite',
         color: 'neonPurple',
         shortDesc: 'The only spacecraft that has ever visited all four giant planets: Jupiter, Saturn, Uranus and Neptune.',
-        story: 'Voyager 2 launched in August 1977, a few days before its twin Voyager 1. The planets were lined up in a way that happens only about once every 176 years, so it could swing from one giant planet to the next. It reached Uranus in 1986 and Neptune in 1989. No other spacecraft has been to either one since. In 2018 it followed its twin into interstellar space.',
+        story: 'Voyager 2 launched in August 1977, about two weeks before its twin Voyager 1. The planets were lined up in a way that happens only about once every 175 years, so it could swing from one giant planet to the next. It reached Uranus in 1986 and Neptune in 1989. No other spacecraft has been to either one since. In 2018 it followed its twin into interstellar space.',
         science: 'Found new moons and rings at Uranus and Neptune, and saw geysers erupting on Neptune\'s icy moon Triton.',
         fact: 'Voyager 2 launched BEFORE Voyager 1. Voyager 1 got its number because it took a faster path and reached Jupiter first!',
         abandoned: 'Like its twin, Voyager 2 is on a one-way trip out of the solar system. It is too far away and moving too fast to ever return. It still sends faint signals home, and engineers save its shrinking power by turning instruments off one at a time.',
@@ -84,12 +84,12 @@ RELICS_DATA.push(
         color: 'neonPurple',
         shortDesc: 'The first spacecraft to fly past Saturn and see its rings up close.',
         story: 'Pioneer 11 followed its twin to Jupiter in 1974. It used Jupiter\'s gravity like a slingshot to swing all the way across the solar system to Saturn. In 1979 it became the first spacecraft to visit the ringed planet, flying just outside the rings. It scouted the path so the Voyagers could follow safely. Earth last heard from it in 1995.',
-        science: 'Discovered a new ring and a new moon at Saturn and showed that a spacecraft could pass near the rings safely.',
+        science: 'Discovered a thin new ring around Saturn, now called the F ring, and showed that a spacecraft could pass near the rings safely.',
         fact: 'It tested the route past Saturn\'s rings first, so the two Voyager spacecraft would know the way was safe!',
         abandoned: 'Pioneer 11 is on a path out of the solar system and cannot turn around. By 1995 its power source was too weak to run its instruments and its antenna could no longer point at Earth, so contact was lost.',
         lat: 0, lng: 0,
         quiz: {
-            question: 'Which planet did Pioneer 11 visit first of all spacecraft?',
+            question: 'Pioneer 11 was the first spacecraft to fly past which planet?',
             options: ['Saturn', 'Venus', 'Neptune', 'Mercury'],
             correct: 0
         }
@@ -118,7 +118,7 @@ Object.assign(RELICS_TRANSLATIONS_AR, {
         status: 'ما زالت ترسل الإشارات',
         year: '١٩٧٧ - اليوم',
         shortDesc: 'المركبة الوحيدة التي زارت الكواكب العملاقة الأربعة: المشتري وزحل وأورانوس ونبتون.',
-        story: 'انطلقت فوياجر 2 في أغسطس 1977، قبل توأمها فوياجر 1 بأيام قليلة. كانت الكواكب مصطفّة بطريقة لا تحدث إلا مرة كل 176 عاماً تقريباً، فاستطاعت أن تنتقل من كوكب عملاق إلى آخر. وصلت إلى أورانوس عام 1986 وإلى نبتون عام 1989. ولم تزر أي مركبة أخرى هذين الكوكبين منذ ذلك الحين. وفي عام 2018 لحقت بتوأمها إلى الفضاء بين النجوم.',
+        story: 'انطلقت فوياجر 2 في أغسطس 1977، قبل توأمها فوياجر 1 بنحو أسبوعين. كانت الكواكب مصطفّة بطريقة لا تحدث إلا مرة كل 175 عاماً تقريباً، فاستطاعت أن تنتقل من كوكب عملاق إلى آخر. وصلت إلى أورانوس عام 1986 وإلى نبتون عام 1989. ولم تزر أي مركبة أخرى هذين الكوكبين منذ ذلك الحين. وفي عام 2018 لحقت بتوأمها إلى الفضاء بين النجوم.',
         science: 'عثرت على أقمار وحلقات جديدة حول أورانوس ونبتون، ورأت ينابيع تثور على «ترايتون» قمر نبتون الجليدي.',
         fact: 'انطلقت فوياجر 2 قبل فوياجر 1. وحصلت فوياجر 1 على رقمها لأنها سلكت طريقاً أسرع ووصلت إلى المشتري أولاً!',
         abandoned: 'مثل توأمها، فوياجر 2 في رحلة باتجاه واحد إلى خارج المجموعة الشمسية. وهي أبعد وأسرع من أن تعود. ما زالت ترسل إشارات خافتة إلى الأرض، ويحافظ المهندسون على طاقتها المتناقصة بإطفاء أجهزتها واحداً تلو الآخر.',
@@ -149,11 +149,11 @@ Object.assign(RELICS_TRANSLATIONS_AR, {
         year: '١٩٧٣ - ١٩٩٥',
         shortDesc: 'أول مركبة تمرّ بجانب زحل وترى حلقاته عن قرب.',
         story: 'لحقت بايونير 11 بتوأمها إلى المشتري عام 1974. واستخدمت جاذبية المشتري مثل المقلاع لتندفع عبر المجموعة الشمسية كلها نحو زحل. وفي عام 1979 صارت أول مركبة تزور الكوكب ذا الحلقات، وطارت خارج الحلقات مباشرة. لقد استكشفت الطريق لتتبعها مركبتا فوياجر بأمان. وسمعتها الأرض آخر مرة عام 1995.',
-        science: 'اكتشفت حلقة جديدة وقمراً جديداً حول زحل، وبيّنت أن المركبة تستطيع المرور قرب الحلقات بأمان.',
+        science: 'اكتشفت حلقة رفيعة جديدة حول زحل تُسمّى اليوم الحلقة F، وبيّنت أن المركبة تستطيع المرور قرب الحلقات بأمان.',
         fact: 'جرّبت الطريق بجانب حلقات زحل أولاً، لتعرف مركبتا فوياجر أن الطريق آمن!',
         abandoned: 'بايونير 11 في مسار إلى خارج المجموعة الشمسية ولا تستطيع العودة. وبحلول عام 1995 صار مصدر طاقتها أضعف من أن يشغّل أجهزتها، ولم يعد هوائيها قادراً على التوجّه نحو الأرض، فانقطع الاتصال.',
         quiz: {
-            question: 'أي كوكب زارته بايونير 11 قبل كل المركبات؟',
+            question: 'ما الكوكب الذي كانت بايونير 11 أول مركبة تمرّ بجانبه؟',
             options: ['زحل', 'الزهرة', 'نبتون', 'عطارد']
         }
     }
@@ -193,10 +193,10 @@ const RELIC_VOICES = {
         'alsep-package': 'I am a science station that Apollo astronauts set up by hand. For years I listened for moonquakes and measured the solar wind, and sent the numbers home by radio. I was switched off in 1977, but scientists still study what I heard.',
         'retroreflector-arrays': 'I am a tray of special mirrors. I need no power at all: scientists on Earth fire a laser at me and I send the light straight back. That is how they know the Moon drifts about 3.8 centimetres farther away every year.',
         'surveyor-3': 'I am Surveyor 3. I landed in 1967 and dug into the Moon with my little scoop to find out if the ground could hold a spacecraft. Two and a half years later, Apollo 12 astronauts walked over to me and took my camera home.',
-        'surveyor-1': 'I am Surveyor 1. In 1966 I made America\'s first gentle landing on the Moon and sent home more than 11,000 pictures. I showed that the ground was firm enough to stand on.',
-        'lunar-orbiter-crash-sites': 'We are the five Lunar Orbiters. We circled the Moon and photographed almost all of it, so NASA could choose safe places for Apollo to land. When our work was done, we were steered into the surface so we would not get in anyone\'s way.',
+        'surveyor-1': 'I am Surveyor 1. In 1966 I made America\'s first gentle landing on the Moon and sent home more than 10,000 pictures. I showed that the ground was firm enough to stand on.',
+        'lunar-orbiter-crash-sites': 'We are the five Lunar Orbiters. We circled the Moon and photographed almost all of it, so NASA could choose safe places for Apollo to land. When our work was done, most of us were steered into the surface so we would not get in the way of later missions.',
         'saturn-s4b-stages': 'I am a third stage of the giant Saturn V rocket. I pushed astronauts toward the Moon, and then I was aimed at it on purpose. My crash shook the ground, and the science stations listened to learn what is inside the Moon.',
-        'ranger-probes': 'I am a Ranger probe. I flew straight at the Moon with my cameras running and sent pictures home until the moment I hit. My cameras worked for only a few minutes, but they gave America its first close-up photos of the Moon.',
+        'ranger-probes': 'I am a Ranger probe. I flew straight at the Moon with my cameras running and sent pictures home until the moment I hit. My cameras sent pictures for less than half an hour, but they gave America its first close-up photos of the Moon.',
         'opportunity-oppy': 'I am Opportunity, but my friends call me Oppy. I was built to work for 90 days and I kept driving for more than 14 years, farther than a marathon. I found signs that water once flowed on Mars, and then a giant dust storm put me to sleep.',
         'spirit-rover': 'I am Spirit. One of my wheels broke, so I drove backwards and dragged it, and the trail it dug uncovered bright silica left by ancient hot water. I got stuck in soft sand in 2009 and I have rested there ever since.',
         'sojourner-rover': 'I am Sojourner, the first rover on Mars. I am about the size of a microwave oven and I never went far from my lander. I was planned to last 7 days and I worked for 83.',
@@ -223,10 +223,10 @@ const RELIC_VOICES = {
         'alsep-package': 'أنا محطة علمية نصبها رواد أبوللو بأيديهم. ظللت سنوات أستمع إلى زلازل القمر وأقيس الرياح الشمسية وأرسل الأرقام إلى الأرض بالراديو. أُطفئتُ عام 1977، لكن العلماء ما زالوا يدرسون ما سمعته.',
         'retroreflector-arrays': 'أنا صينية من المرايا الخاصة. لا أحتاج إلى أي طاقة: يطلق العلماء على الأرض ليزراً نحوي فأعيد الضوء إليهم مباشرة. وهكذا عرفوا أن القمر يبتعد نحو 3.8 سنتيمتر كل عام.',
         'surveyor-3': 'أنا سيرفيور 3. هبطتُ عام 1967 وحفرتُ في القمر بمغرفتي الصغيرة لأعرف هل تتحمل الأرض مركبة فضائية. وبعد عامين ونصف مشى إليّ رواد أبوللو 12 وأخذوا كاميرتي إلى الأرض.',
-        'surveyor-1': 'أنا سيرفيور 1. في عام 1966 قمتُ بأول هبوط أمريكي ناعم على القمر وأرسلتُ أكثر من 11 ألف صورة. لقد بيّنتُ أن الأرض صلبة بما يكفي للوقوف عليها.',
-        'lunar-orbiter-crash-sites': 'نحن مركبات «لونار أوربيتر» الخمس. درنا حول القمر وصوّرناه كله تقريباً، لتختار ناسا أماكن آمنة لهبوط أبوللو. وعندما انتهى عملنا وُجّهنا نحو السطح حتى لا نعترض طريق أحد.',
+        'surveyor-1': 'أنا سيرفيور 1. في عام 1966 قمتُ بأول هبوط أمريكي ناعم على القمر وأرسلتُ أكثر من 10 آلاف صورة. لقد بيّنتُ أن الأرض صلبة بما يكفي للوقوف عليها.',
+        'lunar-orbiter-crash-sites': 'نحن مركبات «لونار أوربيتر» الخمس. درنا حول القمر وصوّرناه كله تقريباً، لتختار ناسا أماكن آمنة لهبوط أبوللو. وعندما انتهى عملنا وُجّه معظمنا نحو السطح حتى لا نعترض طريق المهمات التالية.',
         'saturn-s4b-stages': 'أنا المرحلة الثالثة من صاروخ «ساتورن 5» العملاق. دفعتُ رواد الفضاء نحو القمر، ثم وُجّهتُ إليه عن قصد. اصطدامي هزّ الأرض، واستمعت المحطات العلمية لتعرف ما في داخل القمر.',
-        'ranger-probes': 'أنا مسبار «رينجر». طرتُ نحو القمر مباشرة وكاميراتي تعمل، وأرسلتُ الصور حتى لحظة اصطدامي. عملت كاميراتي دقائق قليلة فقط، لكنها أعطت أمريكا أول صور قريبة للقمر.',
+        'ranger-probes': 'أنا مسبار «رينجر». طرتُ نحو القمر مباشرة وكاميراتي تعمل، وأرسلتُ الصور حتى لحظة اصطدامي. أرسلت كاميراتي الصور أقل من نصف ساعة فقط، لكنها أعطت أمريكا أول صور قريبة للقمر.',
         'opportunity-oppy': 'أنا «أوبورتيونيتي»، ويسمّيني أصدقائي «أوبي». صُنعتُ لأعمل 90 يوماً، لكنني ظللت أسير أكثر من 14 عاماً، مسافة أطول من سباق الماراثون. وجدتُ دلائل على أن الماء جرى يوماً على المريخ، ثم أنامتني عاصفة غبار هائلة.',
         'spirit-rover': 'أنا «سبيريت». انكسرت إحدى عجلاتي، فسرتُ إلى الخلف وأنا أجرّها، وكشف الأثر الذي حفرته عن سيليكا لامعة تركتها مياه ساخنة قديمة. علقتُ في رمل ناعم عام 2009 وأنا أستريح هناك منذ ذلك الحين.',
         'sojourner-rover': 'أنا «سوجورنر»، أول مركبة جوّالة على المريخ. حجمي يقارب حجم فرن الميكروويف ولم أبتعد كثيراً عن مركبة الهبوط. كان مقرراً أن أعمل 7 أيام، لكنني عملت 83 يوماً.',
@@ -273,7 +273,7 @@ const RELIC_COORDS = {
     'insight-lander': { at: [4.50, 135.62] },
     'phoenix-lander': { at: [68.22, -125.75] },
     'viking1-lander': { at: [22.27, -47.95] },
-    'viking2-lander': { at: [47.64, 134.29] },
+    'viking2-lander': { at: [47.97, 134.29] },
     'mars-polar-lander': { at: [-76.0, 165.0] }
 };
 // The part of each world the map shows. The Moon map is zoomed to the side that faces Earth.
